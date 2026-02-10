@@ -14,7 +14,6 @@ body {
 
 <center>
 
-<!-- HEADER BLOCK -->
 <table width="760" border="2" cellpadding="6" cellspacing="0" bordercolor="#00aaaa" bgcolor="#000000">
 <tr>
 <td align="left">
@@ -33,12 +32,11 @@ poke around, dig through the drawers, hang out for a while.
 
 <br>
 
-<!-- COMMAND BAR -->
 <table width="760" border="1" cellpadding="4" cellspacing="0" bordercolor="#008888" bgcolor="#000000">
 <tr><td>
 <marquee scrollamount="5">
 <font face="Courier New" size="2" color="#00ffcc">
-say no to web3, keep the web free!
+say no to web3, keep the web free! - meetniko.fyi 2026
 </font>
 </marquee>
 </td></tr>
@@ -70,7 +68,6 @@ say no to web3, keep the web free!
 
 <br>
 
-<!-- ABOUT THE AUTHOR -->
 <table width="100%" border="1" cellpadding="6" cellspacing="0" bordercolor="#008888" bgcolor="#000000">
 <tr><td>
 <font face="Courier New" size="3" color="#00ffff"><b>about the author</b></font>
@@ -86,7 +83,6 @@ linux fan
 
 <br>
 
-<!-- PERSONAL RESOURCES -->
 <table width="100%" border="1" cellpadding="6" cellspacing="0" bordercolor="#008888" bgcolor="#000000">
 <tr><td>
 <font face="Courier New" size="3" color="#00ffff"><b>why i think.. uhh....</b></font>
@@ -102,7 +98,6 @@ linux fan
 
 <br>
 
-<!-- NEW SIDE-BY-SIDE MINI BOXES -->
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td width="50%">
@@ -137,7 +132,6 @@ public mirror allowed
 
 <td width="20"></td>
 
-<!-- RIGHT CONTENT -->
 <td width="540" valign="top">
 
 <table width="100%" border="1" cellpadding="8" cellspacing="0" bordercolor="#008888" bgcolor="#000000">
@@ -192,7 +186,6 @@ if i (EVER) upset you or made you made, please know im a dumbass. im really (swe
 
 <br>
 
-<!-- FOOTER WITH IMAGE COUNTER -->
 <table width="760" border="1" cellpadding="6" cellspacing="0" bordercolor="#008888" bgcolor="#000000">
 <tr>
 <td align="left">
@@ -208,7 +201,6 @@ my very own place on the internet, wow.. who knew just you can do a TON online!?
 
 <br>
 
-<!-- REQUESTED GIF -->
 <table border="0" cellpadding="2" cellspacing="0" style="margin-top:-6px;"><tr>
 <td align="center" valign="top">
 <font face="Courier New" size="1" color="#66cccc">&nbsp;</font><br>
@@ -239,7 +231,6 @@ best viewed with internet explorer 4+
 </body>
 </html>
 
-<meta name="GENERATOR" content="Notepad + HTML 4.0">
 <style>
 body {
     margin: 0;
@@ -248,68 +239,198 @@ body {
     color: #00ffff;
     font-family: 'Courier New', monospace;
 }
-#musicPopup {
+
+.panel {
     position: fixed;
     top: 10px;
-    right: -220px;
-    width: 200px;
-    background-color: #000000;
-    border: 1px solid #00aaaa;
-    padding: 6px;
+    right: -240px;
+    width: 220px;
+    background: #000;
+    border: 2px solid #00aaaa;
     color: #00ffff;
-    font-family: 'Courier New', monospace;
-    cursor: pointer;
-    z-index: 1000;
+    padding: 8px;
     transition: right 0.5s;
+    z-index: 1000;
 }
-#musicPopup.show {
-    right: 10px;
-}
-#musicPopup .closeBtn {
-    position: absolute;
-    top: 2px;
-    right: 4px;
+
+.panel.show { right: 10px; }
+
+.closeBtn {
+    float: right;
+    cursor: pointer;
     color: #ff5555;
     font-weight: bold;
+}
+
+/* ===== POPUP ===== */
+#musicPopup {
+    text-align: center;
     cursor: pointer;
+}
+
+
+.playerHeader {
+    border: 1px solid #00aaaa;
+    background: #001515;
+    padding: 4px;
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.meterOuter {
+    width: 100%;
+    height: 12px;
+    border: 1px solid #00aaaa;
+    background: #001010;
+    margin: 6px 0;
+}
+
+.meterInner {
+    height: 100%;
+    width: 0%;
+    background: #00ffff;
+}
+
+.timeRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+}
+
+.ctrlRow {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.ctrlRow button {
+    flex: 1;
+    background: #001a1a;
+    border: 1px solid #00aaaa;
+    color: #00ffff;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 4px 0;
 }
 </style>
 </head>
+
 <body>
 
-<!-- MUSIC POPUP -->
-<div id="musicPopup">
-  <span class="closeBtn" onclick="closeMusicPopup()">X</span>
+<div id="musicPopup" class="panel">
+  <span class="closeBtn" onclick="hideAll()">X</span>
   click here to enable music!! :3
 </div>
-<audio id="backgroundMusic" src="https://files.catbox.moe/qz9nvt.mp3"></audio>
+
+<div id="musicPlayer" class="panel">
+
+  <span class="closeBtn" onclick="hideAll()">X</span>
+  <div style="clear:both"></div>
+
+  <div id="songTitle" class="playerHeader">
+    READY
+  </div>
+
+  <div class="meterOuter">
+    <div id="meterFill" class="meterInner"></div>
+  </div>
+
+  <div class="timeRow">
+    <span id="tcur">0:00</span>
+    <span id="tdur">0:00</span>
+  </div>
+
+  <div class="ctrlRow">
+    <button onclick="prevSong()">PREV</button>
+    <button onclick="togglePlay()">PLAY</button>
+    <button onclick="nextSong()">NEXT</button>
+  </div>
+
+</div>
+
+<audio id="audio"></audio>
 
 <script>
-const popup = document.getElementById('musicPopup');
-popup.classList.add('show'); 
+const tracks = [
+  {title:"i can see clearly", src:"https://files.catbox.moe/dm9nxg.mp3"},
+  {title:"mikazuki step", src:"https://files.catbox.moe/qz9nvt.mp3"},
+  {title:"semi-charmed life", src:"https://files.catbox.moe/0vppb0.mp3"}
+];
 
-popup.addEventListener('click', function(e) {
-    if(e.target.classList.contains('closeBtn')) return;
-    const music = document.getElementById('backgroundMusic');
-    music.play();
-    popup.style.right = '-220px';
+let idx = 0;
+
+const popup  = document.getElementById("musicPopup");
+const player = document.getElementById("musicPlayer");
+const audio  = document.getElementById("audio");
+const fill   = document.getElementById("meterFill");
+const title  = document.getElementById("songTitle");
+
+popup.classList.add("show");
+
+popup.onclick = (e)=>{
+  if(e.target.classList.contains("closeBtn")) return;
+
+  popup.classList.remove("show");
+
+  setTimeout(()=>{
+    player.classList.add("show");
+  }, 600);
+
+  load(idx);
+  audio.play();
+};
+
+function load(i){
+  audio.src = tracks[i].src;
+  title.textContent = tracks[i].title;
+}
+
+function togglePlay(){
+  if(audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
+
+function nextSong(){
+  idx = (idx + 1) % tracks.length;
+  load(idx);
+  audio.play();
+}
+
+function prevSong(){
+  idx = (idx - 1 + tracks.length) % tracks.length;
+  load(idx);
+  audio.play();
+}
+
+function hideAll(){
+  popup.classList.remove("show");
+  player.classList.remove("show");
+  audio.pause();
+}
+
+audio.addEventListener("timeupdate", ()=>{
+  if(!audio.duration) return;
+
+  fill.style.width =
+    (audio.currentTime / audio.duration * 100) + "%";
+
+  document.getElementById("tcur").textContent = fmt(audio.currentTime);
+  document.getElementById("tdur").textContent = fmt(audio.duration);
 });
 
-function closeMusicPopup() {
-    popup.style.display = 'none';
+audio.addEventListener("ended", nextSong);
+
+function fmt(t){
+  let m = Math.floor(t/60);
+  let s = Math.floor(t%60);
+  if(s<10) s="0"+s;
+  return m+":"+s;
 }
 </script>
 
-</body> 
-</html> 
-<link rel="icon" href="/favicon.ico">
-
-
-
-
-
-
-
-
-
-
+</body>
+</html>
