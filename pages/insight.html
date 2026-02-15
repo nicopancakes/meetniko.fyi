@@ -1,0 +1,259 @@
+<style>
+:root{
+  --red:#d72638;
+  --red-soft:#ff4d5e;
+  --panel:#181820;
+  --border:#2b2b36;
+  --text:#e9e9ef;
+  --muted:#a3a7b2;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color:var(--text);
+  background:
+    linear-gradient(rgba(30,8,10,.82), rgba(18,8,12,.88)),
+    url("https://i.pinimg.com/1200x/17/53/3a/17533aee75204cb1386eb290a8fa20bc.jpg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+}
+
+nav{
+  position:sticky;
+  top:0;
+  backdrop-filter: blur(8px);
+  background:rgba(10,10,14,.65);
+  border-bottom:1px solid var(--border);
+}
+
+.nav-inner{
+  max-width:1300px;
+  margin:auto;
+  padding:18px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-weight:900;
+  font-size:22px;
+  letter-spacing:.4px;
+}
+
+.logo span{color:var(--red)}
+
+.nav-links a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:26px;
+  font-size:15px;
+}
+
+.nav-links a:hover{color:white}
+
+.hero{
+  max-width:1300px;
+  margin:140px auto 100px;
+  padding:0 28px;
+}
+
+.badge{
+  display:inline-block;
+  border:1px solid var(--red);
+  color:var(--red-soft);
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:13px;
+  letter-spacing:.4px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:64px;
+  line-height:1.02;
+  margin:0 0 20px;
+}
+
+.hero p{
+  font-size:20px;
+  color:var(--muted);
+  max-width:720px;
+}
+
+.btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:18px 26px;
+  border-radius:12px;
+  background:var(--red);
+  color:white;
+  text-decoration:none;
+  font-weight:800;
+  font-size:16px;
+}
+
+.btn:hover{filter:brightness(1.1)}
+
+.btn-outline{
+  background:transparent;
+  border:1px solid var(--border);
+  margin-left:16px;
+}
+
+.section{
+  max-width:1300px;
+  margin:100px auto;
+  padding:0 28px;
+}
+
+.section h2{
+  font-size:38px;
+  margin-bottom:34px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+}
+
+.card{
+  background:rgba(24,24,32,.94);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:30px;
+  min-height:200px;
+}
+
+.card h3{
+  margin-top:0;
+  margin-bottom:12px;
+}
+
+.support{
+  background:linear-gradient(180deg,#1b1b25,#15151d);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:40px;
+  text-align:center;
+}
+
+.support h2{
+  margin-top:0;
+  font-size:34px;
+}
+
+.support p{
+  color:var(--muted);
+  font-size:18px;
+}
+
+footer{
+  margin-top:140px;
+  border-top:1px solid var(--border);
+  background:rgba(10,10,14,.7);
+}
+
+.footer-inner{
+  max-width:1300px;
+  margin:auto;
+  padding:40px 28px;
+  color:var(--muted);
+  font-size:14px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr}
+  .hero h1{font-size:46px}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Insight<span>Bot</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#support">Support</a>
+      <a href="#">Invite</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+
+  <div class="badge">Discord Moderation & Protection</div>
+
+  <h1>Predator Server Protection<br>With Insight Bot</h1>
+
+  <p>
+    Insight Bot helps Discord communities stay safer by blocking
+    accounts that appear in a shared moderation database. Fast, consistent,
+    and built for moderator control.
+  </p>
+
+  <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1468719390089543858 
+">Invite Insight Bot</a>
+  <a class="btn btn-outline" href="https://discord.gg/uUW53GFGJN" target="_blank">
+    Join Support Server
+  </a>
+
+</section>
+
+<section class="section" id="features">
+
+<h2>Core Features</h2>
+
+<div class="cards">
+
+  <div class="card">
+
+  <div class="card">
+    <h3>Protection Database</h3>
+    Uses a continuously maintained moderation list to reduce repeat offenders across servers.
+  </div>
+
+  <div class="card">
+    <h3>Moderator Transparency</h3>
+    Actions are clear, reviewable, and designed to stay under staff control.
+  </div>
+
+</div>
+
+</section>
+
+<section class="section" id="support">
+
+<div class="support">
+  <h2>Insight Corporation Support Server</h2>
+  <p>
+    Report a Predator, Have Suggestions, ETC? 
+    Join the official Insight Corporation support server.
+  </p>
+
+  <a class="btn" href="https://discord.gg/uUW53GFGJN" target="_blank">
+    Join Support Server
+  </a>
+</div>
+
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>meetniko.fyi © 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
