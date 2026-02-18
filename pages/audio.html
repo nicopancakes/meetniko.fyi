@@ -1,0 +1,39 @@
+    <link rel="stylesheet" href="audiopages/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <header class="header">
+            <h1>Audio Visualizer</h1>
+        </header>
+
+        <section class="controls">
+
+            <input type="file" id="fileInput" accept="audio/*">
+
+            <select id="noiseMode">
+                <option value="off">Noise Reduction: Off</option>
+                <option value="light">Light Static Reduction</option>
+                <option value="radio">Radio Voice Clean</option>
+                <option value="aggressive">Aggressive Voice Focus</option>
+                <option value="hum50">Remove 50Hz Hum</option>
+                <option value="hum60">Remove 60Hz Hum</option>
+            </select>
+
+            <button id="playBtn">Play</button>
+
+        </section>
+
+        <section class="video-wrapper">
+            <canvas id="visualizer"></canvas>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="audiopages/script.js"></script>
+
+</body>
+</html>
