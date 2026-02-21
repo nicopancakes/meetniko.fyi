@@ -436,3 +436,285 @@ function fmt(t){
 
 </body>
 </html>
+<script>
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = [];
+  const colors = ['#ffe6f0','#ffccd5','#ffb6c1','#ff9aa2','#fff0f5','#f8d7da','#e0bbff'];
+
+  for (let i = 0; i < 100; i++) {
+    confetti.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -150 - 50,
+      r: Math.random() * 5 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speed: Math.random() * 4 + 2.5,
+      rotation: Math.random() * 360,
+      tilt: Math.random() * 12 - 6
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((c, i) => {
+      c.y += c.speed;
+      c.rotation += 6;
+      if (c.y > canvas.height + 50) confetti.splice(i, 1);
+
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rotation * Math.PI / 180);
+      ctx.fillStyle = c.color;
+      ctx.fillRect(-c.r, -c.r/2, c.r*2, c.r);
+      ctx.restore();
+    });
+    if (confetti.length) requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+function handleLinkClick() {
+  launchConfetti();
+  setTimeout(() => {
+    window.location.assign("https://discord.gg/ECKWpuPzjh");
+  }, 1100);
+}
+
+function closeKawaiiPopup() {
+  const popup = document.getElementById('kawaiiPopup');
+  popup.classList.add('closing');
+  setTimeout(() => { popup.style.display = 'none'; }, 500);
+}
+
+window.addEventListener('resize', () => {
+  const canvas = document.getElementById('confetti-canvas');
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+});
+
+// ────────────────────────────────────────
+// Your original music player script (unchanged)
+// ────────────────────────────────────────
+const tracks = [
+  {title:"i can see clearly", src:"https://files.catbox.moe/dm9nxg.mp3"},
+  {title:"school rooftop", src:"https://files.catbox.moe/y4r1r1.mp3"},
+  {title:"semi-charmed life", src:"https://files.catbox.moe/0vppb0.mp3"},
+  {title:"a2 - we dont have many days", src:"https://files.catbox.moe/xudmk4.mp3"},
+  {title:"basket case", src:"https://files.catbox.moe/wmrt1o.mp3"}
+];
+let idx = 0;
+const popupEl = document.getElementById("musicPopup");
+const playerEl = document.getElementById("musicPlayer");
+const audio = document.getElementById("audio");
+const fill = document.getElementById("meterFill");
+const titleEl = document.getElementById("songTitle");
+
+popupEl.classList.add("show");
+
+popupEl.onclick = (e) => {
+  if(e.target.classList.contains("closeBtn")) return;
+  popupEl.classList.remove("show");
+  setTimeout(() => {
+    playerEl.classList.add("show");
+  }, 600);
+  load(idx);
+  audio.play();
+};
+
+function load(i){
+  audio.src = tracks[i].src;
+  titleEl.textContent = tracks[i].title;
+}
+
+function togglePlay(){
+  audio.paused ? audio.play() : audio.pause();
+}
+
+function nextSong(){
+  idx = (idx + 1) % tracks.length;
+  load(idx);
+  audio.play();
+}
+
+function prevSong(){
+  idx = (idx - 1 + tracks.length) % tracks.length;
+  load(idx);
+  audio.play();
+}
+
+function hideAll(){
+  popupEl.classList.remove("show");
+  playerEl.classList.remove("show");
+  audio.pause();
+}
+
+audio.addEventListener("timeupdate", () => {
+  if(!audio.duration) return;
+  fill.style.width = (audio.currentTime / audio.duration * 100) + "%";
+  document.getElementById("tcur").textContent = fmt(audio.currentTime);
+  document.getElementById("tdur").textContent = fmt(audio.duration);
+});
+
+audio.addEventListener("ended", nextSong);
+
+function fmt(t){
+  let m = Math.floor(t/60);
+  let s = Math.floor(t%60);
+  return m + ":" + (s<10 ? "0"+s : s);
+}
+</script>
+</body>
+</html>
+
+
+<!-- Kawaii welcome popup - paste right after <body> -->
+<canvas id="confetti-canvas" style="position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:99999;display:none;"></canvas>
+
+<div id="kawaiiPopup" style="
+  width: 340px;
+  min-height: 220px;
+  background: #ffe6f0;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 1px 6px rgba(255,255,255,0.6);
+  padding: 32px 24px 90px;
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  text-align: center;
+  border: 3px solid #ffccd5;
+  z-index: 9999;
+  opacity: 0;
+  animation: gentlePopIn 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+  box-sizing: border-box;
+">
+  <style>
+    @keyframes gentlePopIn {
+      0%   { opacity:0; transform:translate(-50%,-50%) scale(0.85); }
+      60%  { opacity:1; transform:translate(-50%,-50%) scale(1.05); }
+      100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    }
+    #kawaiiPopup.closing {
+      animation: gentleFadeOut 0.45s ease forwards;
+      pointer-events: none;
+    }
+    @keyframes gentleFadeOut {
+      0%   { opacity:1; transform:translate(-50%,-50%) scale(1); }
+      100% { opacity:0; transform:translate(-50%,-50%) scale(0.92); }
+    }
+    #kawaiiPopup::before {
+      content:"✿"; position:absolute; font-size:100px; color:rgba(255,182,193,0.14);
+      top:-25px; left:-15px; pointer-events:none; transform:rotate(-15deg);
+    }
+    #kawaiiPopup::after {
+      content:"♡"; position:absolute; font-size:80px; color:rgba(255,182,193,0.11);
+      bottom:-10px; right:-10px; pointer-events:none; transform:rotate(20deg);
+    }
+    #kawaiiPopup h2 {
+      margin:0 0 16px; font-size:2.2rem; font-weight:bold; color:#ffffff;
+    }
+    #kawaiiPopup p {
+      margin:0 0 24px; font-size:1.2rem; line-height:1.45; color:#ffffff;
+    }
+    .kawaii-link {
+      color:#ffffff; font-weight:bold; cursor:pointer;
+      text-decoration:underline wavy #ffb6c1 2px; transition:all 0.2s;
+    }
+    .kawaii-link:hover {
+      color:#ffe6f0; text-shadow:0 0 10px rgba(255,255,255,0.8);
+    }
+    .close-btn {
+      position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+      background:#ffccd5; color:#ffffff; border:none; border-radius:999px;
+      padding:10px 36px; font-size:1.1rem; font-weight:bold; cursor:pointer;
+      box-shadow:0 4px 14px rgba(0,0,0,0.2); transition:all 0.2s;
+    }
+    .close-btn:hover {
+      background:#ffc1cc; transform:translateX(-50%) scale(1.07);
+    }
+  </style>
+
+  <h2>hi cutie!!</h2>
+  <p>thanks for visiting my little corner of the internet ♡<br>you're super cool for being here >w<</p>
+
+  <div style="margin:24px 0;">
+    <span class="kawaii-link" onclick="handleLinkClick()">click to visit my discord server for unreleased tiktok stuff & chat</span>
+  </div>
+
+  <button class="close-btn" onclick="closeKawaiiPopup()">close</button>
+</div>
+
+<script>
+// ─── Kawaii popup logic ──────────────────────────────────────
+function launchConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.style.display = 'block';
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const confetti = [];
+  const colors = ['#ffe6f0','#ffccd5','#ffb6c1','#ff9aa2','#fff0f5','#f8d7da','#e0bbff'];
+
+  for (let i = 0; i < 100; i++) {
+    confetti.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -150 - 50,
+      r: Math.random() * 5 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      speed: Math.random() * 4 + 2.5,
+      rotation: Math.random() * 360,
+      tilt: Math.random() * 12 - 6
+    });
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach((c, i) => {
+      c.y += c.speed;
+      c.rotation += 6;
+      if (c.y > canvas.height + 50) confetti.splice(i, 1);
+
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.rotate(c.rotation * Math.PI / 180);
+      ctx.fillStyle = c.color;
+      ctx.fillRect(-c.r, -c.r/2, c.r*2, c.r);
+      ctx.restore();
+    });
+    if (confetti.length) requestAnimationFrame(animate);
+    else canvas.style.display = 'none';
+  }
+  animate();
+}
+
+function handleLinkClick() {
+  launchConfetti();
+  setTimeout(() => {
+    window.location.assign("https://discord.gg/ECKWpuPzjh");
+  }, 1100);
+}
+
+function closeKawaiiPopup() {
+  const popup = document.getElementById('kawaiiPopup');
+  popup.classList.add('closing');
+  setTimeout(() => { popup.remove(); }, 500);  // completely remove after fade
+}
+
+window.addEventListener('resize', () => {
+  const canvas = document.getElementById('confetti-canvas');
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+});
+</script>
+<!-- End of kawaii popup -->
