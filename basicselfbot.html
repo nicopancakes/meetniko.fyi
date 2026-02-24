@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BasicSB • Simple Discord Selfbot</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Prism.js for syntax highlighting -->
+  <!-- Prism.js syntax highlighting -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js" defer></script>
@@ -45,7 +46,20 @@
       padding: 7rem 1.5rem 9rem;
     }
 
-    /* Top-right Hi tab */
+    /* Logo */
+    .logo-container {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .logo {
+      max-width: 320px;
+      height: auto;
+      filter: drop-shadow(0 4px 12px rgba(192, 132, 252, 0.25));
+      border-radius: 12px;
+    }
+
+    /* Top-right update pill */
     .top-tab {
       position: fixed;
       top: 1.2rem;
@@ -83,17 +97,17 @@
     .warning-box strong { color: #fff; }
 
     h1 {
-      font-size: 3.6rem;
+      font-size: 3.8rem;
       font-weight: 700;
       text-align: center;
       color: white;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       letter-spacing: -0.02em;
     }
 
     .subtitle {
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       color: var(--dim);
       margin-bottom: 4rem;
     }
@@ -175,7 +189,7 @@
       text-decoration: none;
       margin: 0.7rem 1rem;
       transition: all 0.18s;
-      min-width: 180px;
+      min-width: 210px;
     }
 
     .cta-button:hover {
@@ -210,18 +224,24 @@
     }
 
     @media (max-width: 700px) {
-      h1 { font-size: 2.9rem; }
-      .cta-button { font-size: 1.15rem; padding: 0.95rem 1.8rem; min-width: 150px; }
+      h1 { font-size: 3rem; }
+      .logo { max-width: 260px; }
+      .cta-button { font-size: 1.15rem; padding: 0.95rem 1.8rem; min-width: 170px; }
       main { padding: 6rem 1.2rem 8rem; }
-      .top-tab { right: 1rem; top: 1rem; padding: 0.5rem 1rem; font-size: 0.95rem; }
+      .top-tab { right: 1rem; top: 1rem; padding: 0.5rem 1rem; font-size: 0.92rem; }
     }
   </style>
 </head>
 <body>
 
-  <a href="#" class="top-tab">Last Update: 2.23.2026 - v1.0.2</a>
+  <a href="#" class="top-tab">Last Update: 2.22.2026 - v1.0.1</a>
 
   <main>
+    <div class="logo-container">
+      <img src="https://files.catbox.moe/51qxq4.png" 
+           alt="BasicSB" class="logo">
+    </div>
+
     <h1>BasicSB</h1>
     <p class="subtitle">A simple discord selfbot written in Python.</p>
 
@@ -270,7 +290,7 @@
 })();</code></pre>
 
     <h2>Installation</h2>
-    <pre><code class="language-bash">pip uninstall discord discord.py discord.py-self -y   # to avoid version conflict
+    <pre><code class="language-bash">pip uninstall discord discord.py discord.py-self -y # to avoid version conflict
 pip install git+https://github.com/dolfies/discord.py-self.git aiohttp --upgrade --force-reinstall</code></pre>
 
     <h2>Run</h2>
@@ -279,7 +299,10 @@ pip install git+https://github.com/dolfies/discord.py-self.git aiohttp --upgrade
 
     <div class="cta">
       <a href="https://github.com/nicopancakes/BasicSB/archive/refs/heads/main.zip" class="cta-button" download>
-        Download script.py - 3.5 KB
+        Download Newest Version - 3.5 KB
+      </a>
+       <a href="https://files.catbox.moe/dxz3pq.py" class="cta-button" download>
+        Download BETA - 11.3 KB
       </a>
       <a href="https://discord.gg/UhnUbE9JEd" class="cta-button discord" target="_blank">
         Join Discord
@@ -291,7 +314,7 @@ pip install git+https://github.com/dolfies/discord.py-self.git aiohttp --upgrade
   </main>
 
   <footer>
-read if cute
+    read if cute
   </footer>
 
 </body>
