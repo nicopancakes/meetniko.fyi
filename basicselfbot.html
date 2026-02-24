@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js" defer></script>
+
+  <style>
+    :root {
+      --bg:       #0a0a0a;
+      --text:     #d4d4d4;
+      --dim:      #888;
+      --accent:   #c084fc;
+      --accent-hover: #d8b4fe;
+      --warning:  #ef4444;
+      --surface:  #111;
+      --border:   #222;
+      --code-bg:  #0d0d0d;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 9rem;
+    }
+
+    /* Top-right Hi tab */
+    .top-tab {
+      position: fixed;
+      top: 1.2rem;
+      right: 1.8rem;
+      z-index: 1000;
+      background: rgba(30, 30, 30, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      transition: all 0.18s ease;
+    }
+
+    .top-tab:hover {
+      background: var(--accent);
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(192, 132, 252, 0.3);
+    }
+
+    .warning-box {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--warning);
+      border-radius: 10px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 3.5rem;
+      color: #fecaca;
+      font-weight: 500;
+    }
+
+    .warning-box strong { color: #fff; }
+
+    h1 {
+      font-size: 3.6rem;
+      font-weight: 700;
+      text-align: center;
+      color: white;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.4rem;
+      color: var(--dim);
+      margin-bottom: 4rem;
+    }
+
+    h2 {
+      font-size: 2.1rem;
+      color: white;
+      font-weight: 600;
+      margin: 5rem 0 1.3rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+    }
+
+    ul.commands {
+      list-style: none;
+      font-size: 1.15rem;
+      margin: 1.5rem 0;
+    }
+
+    ul.commands li {
+      margin-bottom: 1.1rem;
+      padding-left: 2.2rem;
+      position: relative;
+    }
+
+    ul.commands li::before {
+      content: "`";
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-family: monospace;
+    }
+
+    pre {
+      background: var(--code-bg);
+      padding: 1.5rem 1.8rem;
+      border-radius: 10px;
+      margin: 1.6rem 0;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 1.03rem;
+    }
+
+    .token-warning {
+      color: #fbbf24;
+      font-weight: 500;
+      margin: 1rem 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      color: white;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .cta {
+      text-align: center;
+      margin: 5rem 0 7rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+      font-size: 1.28rem;
+      padding: 1.05rem 2.3rem;
+      border-radius: 8px;
+      text-decoration: none;
+      margin: 0.7rem 1rem;
+      transition: all 0.18s;
+      min-width: 180px;
+    }
+
+    .cta-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.discord {
+      background: #5865F2;
+      color: white;
+    }
+
+    .cta-button.discord:hover {
+      background: #7289da;
+    }
+
+    .cta-button.github {
+      background: #333;
+      color: #fff;
+    }
+
+    .cta-button.github:hover {
+      background: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--dim);
+      font-size: 0.95rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 700px) {
+      h1 { font-size: 2.9rem; }
+      .cta-button { font-size: 1.15rem; padding: 0.95rem 1.8rem; min-width: 150px; }
+      main { padding: 6rem 1.2rem 8rem; }
+      .top-tab { right: 1rem; top: 1rem; padding: 0.5rem 1rem; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#" class="top-tab">Last Update: 2.22.2026 - v1.0.1</a>
+
+  <main>
+    <h1>BasicSB</h1>
+    <p class="subtitle">A simple discord selfbot written in Python.</p>
+
+    <div class="warning-box">
+      <strong>This is a selfbot.</strong> Using selfbots is <strong>against Discord's Terms of Service</strong> (see Community Guidelines and automation rules).<br>
+      Running this <strong>can result in permanent account termination</strong> — even on alternate accounts.<br><br>
+      <strong>Use at your own risk.</strong> This repository and code are provided for <strong>educational purposes only</strong>. I do not encourage, support, or condone any violation of Discord's ToS.
+    </div>
+
+    <h2>Commands</h2>
+    <ul class="commands">
+      <li>whois [@mention | user ID] → shows detailed user info (ID, username, creation date, badges, bio, pronouns, roles if in same server)</li>
+      <li>del → deletes the last whois message sent by the bot in that channel</li>
+      <li>ping / latency → shows gateway + API latency + account info</li>
+      <li>bl [@mention | user ID] → replies "blacklisted @user (ID)" and auto deletes the reply</li>
+    </ul>
+    <p><em>Works in DMs, group DMs, and servers.</em></p>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>Python 3.8+</li>
+      <li>A Discord user token (see below — extracting it carries risks)</li>
+    </ul>
+
+    <h2>Getting your User Token</h2>
+    <p class="token-warning"><strong>Warning:</strong> Sharing or logging your user token is extremely dangerous — anyone with it can fully control your account. Never share it.</p>
+    <ol>
+      <li>Press Ctrl+Shift+I (or Cmd+Option+I on Mac) to open DevTools</li>
+      <li>Go to the Console tab</li>
+      <li>Type <code>allow pasting</code> and press Enter (if prompted)</li>
+      <li>Paste and run this JavaScript snippet:</li>
+    </ol>
+
+    <pre><code class="language-javascript">(() => {
+  let token;
+  window.webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
+    for (const m of Object.values(req.c)) {
+      if (m?.exports?.default?.getToken) {
+        token = m.exports.default.getToken();
+      }
+    }
+  }]);
+  window.webpackChunkdiscord_app.pop();
+  console.log(token || "not found 404");
+  return token;
+})();</code></pre>
+
+    <h2>Installation</h2>
+    <pre><code class="language-bash">pip uninstall discord discord.py discord.py-self -y   # to avoid version conflict
+pip install git+https://github.com/dolfies/discord.py-self.git aiohttp --upgrade --force-reinstall</code></pre>
+
+    <h2>Run</h2>
+    <pre><code class="language-bash">python script.py</code></pre>
+    <p style="margin-top: -1rem;">(make sure to add your user token inside <code>script.py</code> where indicated)</p>
+
+    <div class="cta">
+      <a href="https://github.com/nicopancakes/BasicSB/archive/refs/heads/main.zip" class="cta-button" download>
+        Download script.py - 3.5 KB
+      </a>
+      <a href="https://discord.gg/UhnUbE9JEd" class="cta-button discord" target="_blank">
+        Join Discord
+      </a>
+      <a href="https://github.com/nicopancakes/BasicSB" class="cta-button github" target="_blank">
+        View on GitHub
+      </a>
+    </div>
+  </main>
+
+  <footer>
+read if cute
+  </footer>
+
+</body>
+</html>
