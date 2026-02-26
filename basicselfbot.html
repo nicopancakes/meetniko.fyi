@@ -267,16 +267,53 @@
     </ol>
 
     <pre><code class="language-javascript">(() => {
-  let token;
-  window.webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
-    for (const m of Object.values(req.c)) {
-      if (m?.exports?.default?.getToken) {
-        token = m.exports.default.getToken();
+  let token = null;
+  try {
+    window.webpackChunkdiscord_app?.push([[Math.random()], {}, (req) => {
+      for (const m of Object.values(req.c)) {
+        if (!m?.exports) continue;
+        if (m.exports === window || typeof m.exports !== 'object') continue;
+
+        if (m.exports?.default?.getToken && typeof m.exports.default.getToken === 'function') {
+          token = m.exports.default.getToken();
+          if (token && typeof token === 'string' && token.includes('.')) break;  // looks like real token
+        }
+        if (m.exports?.Z?.getToken && typeof m.exports.Z.getToken === 'function') {
+          token = m.exports.Z.getToken();
+          if (token && typeof token === 'string' && token.includes('.')) break;
+        }
       }
+    }]);
+    window.webpackChunkdiscord_app?.pop();
+  } catch (e) {
+    console.error("Webpack push failed:", e.message);
+  }
+
+  if (!token) {
+    try {
+      window.webpackChunkdiscord_v2?.push([[Math.random()], {}, (req) => {
+        for (const m of Object.values(req.c)) {
+          if (!m?.exports) continue;
+          if (m.exports === window || typeof m.exports !== 'object') continue;
+
+          if (m.exports?.default?.getToken && typeof m.exports.default.getToken === 'function') {
+            token = m.exports.default.getToken();
+            if (token && typeof token === 'string' && token.includes('.')) break;
+          }
+          if (m.exports?.Z?.getToken && typeof m.exports.Z.getToken === 'function') {
+            token = m.exports.Z.getToken();
+            if (token && typeof token === 'string' && token.includes('.')) break;
+          }
+        }
+      }]);
+      window.webpackChunkdiscord_v2?.pop();
+    } catch (e) {
+      console.error("Fallback chunk failed:", e.message);
     }
-  }]);
-  window.webpackChunkdiscord_app.pop();
-  console.log(token || "not found 404");
+  }
+
+  console.log(token ? "" + token : "Token Not found, Possibly the webpack fully patched in this build.");
+  if (token) navigator.clipboard.writeText(token).catch(() => {});
   return token;
 })();</code></pre>
 
