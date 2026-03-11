@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ <meta property="og:image" content="https://files.catbox.moe/ij83u3.webp">
+  <meta property="og:url" content="https://pupy.meetniko.fyi">
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0e0e0e;
+  }
+  img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+  /* Ko-fi widget positioning & sizing */
+  #kofi-container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    transform: scale(0.6); /* makes it tiny */
+    transform-origin: bottom right;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+<img id="dog" src="" alt="">  
+
+<!-- Ko-fi widget container -->
+<div id="kofi-container">
+  <script type="text/javascript" src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"></script>
+  <script type="text/javascript">
+    kofiwidget2.init('buy me da coffee', '#72a4f2', 'H2H11PE5CJ');
+    kofiwidget2.draw();
+  </script>
+</div>
+
+<script>
+  fetch('https://dog.ceo/api/breeds/image/random')
+    .then(res => res.json())    .then(data => document.getElementById('dog').src = data.message);
+</script>
+</body>
+</html> 
+<style>
+
+    #hidden-note {
+      display: none; 
+      white-space: pre; 
+    }
+  </style>
+</head>
+<body>
+
+  <div id="hidden-note">
+⠀⠀⠀⠀⠀⢀⣤⣀⡀⠀⠀⠀⢀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢠⣿⣿⣿⣿⡄⠀⢠⣿⣿⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⠀⢸⣿⣿⣿⣿⡇⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠘⣿⣿⣿⣿⡏⠀⠀⠻⣿⣿⣿⠃⢰⣿⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀
+⣼⣿⣿⣶⡀⠈⠙⠛⠋⢀⣀⣀⣀⠈⠛⠁⠀⠸⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀
+⣿⣿⣿⣿⣿⠀⠀⣠⣾⣿⣿⣿⣿⣿⣿⣦⣀⠀⠈⠛⠛⠋⠀⠀⠀⠀⠀⠀
+⢻⣿⣿⣿⣿⠁⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠉⠛⠛⠁⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⠟⠃⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠸⣿⣿⣿⣿⣿⣿⠿⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+    sily pupy
+  </div>
+
+</body>
+</html>
