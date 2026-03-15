@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Explorer</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Special+Elite&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --win-bg: #008080;
+            --chrome: #c0c0c0;
+            --chrome-lt: #ffffff;
+            --chrome-dk: #808080;
+            --chrome-xdk: #404040;
+            --titlebar-active: #000080;
+            --titlebar-gradient: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--win-bg);
+            background-image: repeating-linear-gradient(0deg, rgba(0,0,0,.035) 0px, rgba(0,0,0,.035) 1px, transparent 1px, transparent 4px);
+            position: relative;
+            overflow: hidden;
+            font-family: 'VT323', monospace;
+            user-select: none;
+        }
+
+        /* DISABLE RIGHT-CLICK */
+        body { pointer-events: auto; }
+
+        /* DESKTOP ICONS */
+        .desktop-icon {
+            position: absolute;
+            top: 30px;
+            width: 82px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            cursor: pointer;
+            font-size: 0.85rem;
+            line-height: 1.1;
+            padding: 4px;
+            border: 1px solid transparent;
+        }
+        .desktop-icon:hover { background: rgba(255,255,255,0.15); border: 1px dotted #fff; }
+        .desktop-icon img { width: 48px; height: 48px; filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.7)); }
+        #ie-icon { left: 30px; }
+        #trash-icon { right: 30px; }
+
+        /* WINDOW */
+        .window {
+            position: absolute;
+            width: 720px;
+            background: var(--chrome);
+            border: 2px solid var(--chrome-lt);
+            box-shadow: inset 1px 1px 0 var(--chrome-lt),
+                        inset -1px -1px 0 var(--chrome-xdk),
+                        6px 6px 16px rgba(0,0,0,.65);
+            z-index: 10;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .window.maximized {
+            width: 95vw !important;
+            height: 88vh !important;
+            left: 2.5vw !important;
+            top: 6vh !important;
+        }
+
+        /* TITLE BAR */
+        .titlebar {
+            background: var(--titlebar-gradient);
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 28px;
+            cursor: move;
+        }
+        .titlebar-left { display: flex; align-items: center; gap: 6px; min-width: 0; }
+        .titlebar-icon img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-top: 1px;
+        }
+        .titlebar-text {
+            font-size: 0.85rem;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 500;
+            line-height: 18px;
+        }
+        .titlebar-btns { display: flex; gap: 2px; }
+        .win-btn {
+            width: 19px; height: 18px;
+            background: var(--chrome);
+            border: none;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 1px 1px 0 var(--chrome-lt),
+                        inset -1px -1px 0 var(--chrome-xdk),
+                        inset 2px 2px 0 var(--chrome),
+                        inset -2px -2px 0 var(--chrome-dk);
+        }
+        .win-btn:active {
+            box-shadow: inset 1px 1px 0 var(--chrome-dk),
+                        inset -1px -1px 0 var(--chrome-lt);
+            transform: translate(1px, 1px);
+        }
+
+        /* BARS */
+        .menubar, .toolbar, .addressrow, .statusbar { background: var(--chrome); }
+        .menubar { padding: 2px 4px; display: flex; gap: 4px; border-bottom: 1px solid var(--chrome-dk); }
+        .menu-item { font-size: 0.82rem; padding: 3px 9px; }
+        .menu-item:hover { background: var(--titlebar-active); color: #fff; }
+
+        .toolbar {
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border-bottom: 1px solid var(--chrome-dk);
+            position: relative;
+        }
+        .toolbar::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            width: 0;
+            background: var(--titlebar-active);
+        }
+        .toolbar.loading::before { animation: loadbar 850ms ease-out forwards; }
+        @keyframes loadbar { 0% { width: 0%; } 85% { width: 100%; } 100% { width: 100%; opacity: 0; } }
+
+        .toolbar-btn {
+            background: var(--chrome);
+            border: none;
+            font-size: 0.82rem;
+            padding: 2px 10px;
+            box-shadow: inset 1px 1px 0 var(--chrome-lt),
+                        inset -1px -1px 0 var(--chrome-xdk),
+                        inset 2px 2px 0 var(--chrome),
+                        inset -2px -2px 0 var(--chrome-dk);
+        }
+        .toolbar-btn:disabled { color: var(--chrome-dk); }
+        .toolbar-btn:not(:disabled):active { transform: translate(1px,1px); box-shadow: inset 1px 1px 0 var(--chrome-dk), inset -1px -1px 0 var(--chrome-lt); }
+        .sep { width: 1px; height: 18px; background: var(--chrome-dk); box-shadow: 1px 0 0 var(--chrome-lt); margin: 0 4px; }
+
+        .addressrow {
+            padding: 4px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 2px solid var(--chrome-dk);
+            box-shadow: inset 0 -2px 0 var(--chrome-lt);
+        }
+        .addr-label { font-size: 0.8rem; }
+        .addressbar { flex: 1; background: #fff; box-shadow: inset 1px 1px 0 var(--chrome-dk), inset -1px -1px 0 var(--chrome-lt); padding: 2px 4px; }
+        .addressbar input { border: none; outline: none; width: 100%; font-size: 0.85rem; background: transparent; }
+
+        /* SCREEN */
+        .screen {
+            background: #ffffff;
+            padding: 0;
+            overflow: hidden;
+            flex: 1;
+            min-height: 340px;
+            display: flex;
+        }
+        .screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
+        }
+
+        /* STATUS */
+        .statusbar {
+            padding: 3px 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-top: 1px solid var(--chrome-lt);
+        }
+        .status-panel { flex: 1; font-size: 0.78rem; padding: 2px 8px; box-shadow: inset 1px 1px 0 var(--chrome-dk), inset -1px -1px 0 var(--chrome-lt); }
+
+        /* RECYCLE BIN */
+        .trash-window .screen {
+            padding: 12px;
+            background: #fff;
+            overflow: auto;
+        }
+        .trash-file-list {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Times New Roman', serif;
+            font-size: 0.95rem;
+            background: #fff;
+        }
+        .trash-file-list th {
+            background: #c0c0c0;
+            padding: 4px 8px;
+            text-align: left;
+            border: 1px solid #808080;
+            font-weight: normal;
+        }
+        .trash-file-list td {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .trash-file-list tr:hover { background: #e0f0ff; }
+    </style>
+</head>
+<body>
+
+    <!-- DESKTOP ICONS -->
+    <div class="desktop-icon" id="ie-icon">
+        <img src="https://files.catbox.moe/0mgprm.svg" alt="IE">
+        <span class="icon-label">Internet Explorer</span>
+    </div>
+
+    <div class="desktop-icon" id="trash-icon">
+        <img src="https://files.catbox.moe/xgaz2z.png" alt="Recycle Bin">
+        <span class="icon-label">Recycle Bin</span>
+    </div>
+
+    <!-- INTERNET EXPLORER WINDOW -->
+    <div class="window" id="main-window" style="left: calc(50% - 360px); top: 80px;">
+        <div class="titlebar">
+            <div class="titlebar-left">
+                <span class="titlebar-icon">
+                    <img src="https://files.catbox.moe/0mgprm.svg" alt="IE">
+                </span>
+                <span class="titlebar-text" id="titlebarText">Internet Explorer — http://www.mysite.com/index.html</span>
+            </div>
+            <div class="titlebar-btns">
+                <button class="win-btn minimize-btn">_</button>
+                <button class="win-btn maximize-btn">□</button>
+                <button class="win-btn close-btn">✕</button>
+            </div>
+        </div>
+
+        <div class="menubar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Favorites</span>
+            <span class="menu-item">Tools</span>
+            <span class="menu-item">Help</span>
+        </div>
+
+        <div class="toolbar" id="toolbar">
+            <button class="toolbar-btn" id="backBtn" disabled>← Back</button>
+            <button class="toolbar-btn" id="forwardBtn" disabled>→ Forward</button>
+            <div class="sep"></div>
+            <button class="toolbar-btn" id="refreshBtn">⟳ Refresh</button>
+            <button class="toolbar-btn" id="homeBtn">⌂ Home</button>
+            <div class="sep"></div>
+            <button class="toolbar-btn" disabled>★ Favorites</button>
+        </div>
+
+        <div class="addressrow">
+            <span class="addr-label">Address</span>
+            <div class="addressbar">
+                <input type="text" id="addressInput" value="http://www.mysite.com/index.html" readonly>
+            </div>
+            <button class="addr-go">Go</button>
+        </div>
+
+        <div class="screen" id="screen">
+            <div class="page-content" id="pageContent">
+                <h1>Welcome to Windows 98 SE!</h1>
+            <h2>Thank you for choosing Windows 98 SE. Your system is now ready to use.</h2>
+            <ul>
+               
+            </ul>
+            <h2>About Windows:</h2>
+            <ul>
+                <li>Offering Internet Explorer 9.0 (UPDATED: 3/14/2011)</li>
+                <li>Radio enthusiast/tech enthusiast, technology engineering student.</li>
+                <li>    <li>
+                <li>This website provides a Windows 98 Second Edition (SE) emulator for educational and entertainment purposes only. The emulator is not an official Microsoft product, and Windows 98 SE is a registered trademark of Microsoft Corporation. By using this emulator, you agree that it is provided “as-is” for historical, educational, and nostalgic purposes. This emulator displays Internet Explorer logos for educational and entertainment purposes only.</li>
+            </ul>
+            <hr>
+            <p style="text-align:center;">&copy; 2026 www.meetniko.fyi</p>
+                </ul>
+            </div>
+        </div>
+
+        <div class="statusbar">
+            <div class="status-panel" id="statusText">Done</div>
+        </div>
+    </div>
+
+    <!-- RECYCLE BIN -->
+    <div class="window trash-window" id="trash-window" style="display:none; width:620px; left:280px; top:120px;">
+        <div class="titlebar">
+            <div class="titlebar-left">
+                <span class="titlebar-icon">
+                    <img src="https://files.catbox.moe/xgaz2z.png" style="width:18px;height:18px;" alt="Bin">
+                </span>
+                <span class="titlebar-text">Recycle Bin</span>
+            </div>
+            <div class="titlebar-btns">
+                <button class="win-btn minimize-btn">_</button>
+                <button class="win-btn maximize-btn">□</button>
+                <button class="win-btn close-btn">✕</button>
+            </div>
+        </div>
+
+        <div class="screen">
+            <h3 style="font-family:'Times New Roman',serif; margin-bottom:8px; color:#000; font-size:1.05rem;">Contents of Recycle Bin (12 items)</h3>
+            <table class="trash-file-list">
+                <thead>
+                    <tr>
+                        <th style="width:220px;">Name</th>
+                        <th style="width:80px;">Size</th>
+                        <th style="width:110px;">Type</th>
+                        <th style="width:140px;">Date Modified</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>project_backup_2005_final_draft_with_comments_and_changes.html</td><td>142 KB</td><td>HTML Document</td><td>03/15/2005</td></tr>
+                    <tr><td>summer_vacation_2004_photos_high_resolution_scan.jpg</td><td>3.2 MB</td><td>JPEG Image</td><td>07/22/2004</td></tr>
+                    <tr><td>geocities_index_page_with_lots_of_frames_and_midi_music.html</td><td>98 KB</td><td>HTML Document</td><td>11/09/2003</td></tr>
+                    <tr><td>javascript_rollercoaster_game_i_made_in_highschool.js</td><td>67 KB</td><td>JS File</td><td>05/14/2004</td></tr>
+                    <tr><td>family_reunion_2003_photo_scan_very_large_resolution.webp</td><td>2.1 MB</td><td>WebP Image</td><td>12/01/2003</td></tr>
+                    <tr><td>my_first_dreamweaver_project_with_lots_of_tables.html</td><td>312 KB</td><td>HTML Document</td><td>02/28/2002</td></tr>
+                    <tr><td>old_myspace_background_tile_pattern.png</td><td>89 KB</td><td>PNG Image</td><td>06/30/2005</td></tr>
+                    <tr><td>random_virus_warning_popup_script_that_did_nothing.js</td><td>18 KB</td><td>JS File</td><td>04/05/2004</td></tr>
+                    <tr><td>angelfire_guestbook_spam_and_counter_script.js</td><td>34 KB</td><td>JS File</td><td>09/03/2003</td></tr>
+                    <tr><td>school_report_final_version_revised_twice.html</td><td>156 KB</td><td>HTML Document</td><td>10/12/2005</td></tr>
+                    <tr><td>webcam_selfie_from_2003_that_should_have_been_deleted.webp</td><td>945 KB</td><td>WebP Image</td><td>01/19/2003</td></tr>
+                    <tr><td>cat_memes_from_early_internet_1998.jpg</td><td>678 KB</td><td>JPEG Image</td><td>08/17/1998</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="statusbar">
+            <div class="status-panel">12 items • 8.4 MB</div>
+        </div>
+    </div>
+
+    <script>
+        // ====================== RIGHT-CLICK DISABLED ======================
+        document.addEventListener('contextmenu', e => { e.preventDefault(); return false; });
+
+        // ====================== EXACT GOOGIUM HTML (100% unchanged) ======================
+        const googiumHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script async src="https://cse.google.com/cse.js?cx=35f258c7bdf8d4e02"><\/script>
+  <style>
+    body {
+        background: #ffffff;
+        min-height: 100vh;
+        margin: 0;
+        color: #202124;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    a {
+        color: #1a0dab;
+    }
+    .search-container {
+        max-width: 800px;
+        width: 90%;
+        margin: 30px auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 24px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .gcse-searchresults-only {
+        margin-top: 20px;
+    }
+    .animated-title {
+      display: flex;
+      justify-content: center;
+      font-size: 64px;
+      font-weight: 500;
+      position: relative;
+      margin-top: 120px;
+      font-family: arial, sans-serif;
+    }
+    .animated-title span {
+      opacity: 0;
+      display: inline-block;
+      animation: fadeInLetter 0.5s forwards;
+    }
+    .animated-title span:nth-child(1){color:#4285F4;}
+    .animated-title span:nth-child(2){color:#EA4335;}
+    .animated-title span:nth-child(3){color:#FBBC05;}
+    .animated-title span:nth-child(4){color:#4285F4;}
+    .animated-title span:nth-child(5){color:#34A853;}
+    .animated-title span:nth-child(6){color:#EA4335;}
+    .animated-title span:nth-child(7){color:#4285F4;}
+    .animated-title span:nth-child(8){color:#EA4335;}
+    .animated-title span:nth-child(9){color:#FBBC05;}
+    .animated-title span:nth-child(10){color:#34A853;}
+    .animated-title::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      height: 3px;
+      background: #4285F4;
+      width: 0;
+      animation: underlineAnim 1s forwards;
+      animation-delay: 1.2s;
+    }
+    @keyframes fadeInLetter {
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes underlineAnim {
+      to {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="animated-title" id="title">
+  </div>
+  <div class="search-container">
+    <gcse:search linktarget="_self"></gcse:search>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.querySelector(".gcse-search");
+      if (container) {
+        container.addEventListener("click", (e) => {
+          const link = e.target.closest("a");
+          if (link) {
+            if (!link.href.includes(window.location.hostname)) {
+              link.target = "_blank";
+            } else {
+              link.target = "_self";
+            }
+          }
+        });
+      }
+      const titleText = "Googium";
+      const titleContainer = document.getElementById("title");
+      titleText.split("").forEach((letter, index) => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        span.style.animationDelay = \`\${index * 0.1}s\`;
+        titleContainer.appendChild(span);
+      });
+    });
+  <\/script>
+</body>
+</html>`;
+
+        // ====================== ELEMENTS ======================
+        const mainWindow = document.getElementById('main-window');
+        const trashWindow = document.getElementById('trash-window');
+        const screen = document.getElementById('screen');
+        const pageContent = document.getElementById('pageContent');
+        const toolbar = document.getElementById('toolbar');
+        const titlebarText = document.getElementById('titlebarText');
+        const addressInput = document.getElementById('addressInput');
+        const statusText = document.getElementById('statusText');
+
+        const backBtn = document.getElementById('backBtn');
+        const forwardBtn = document.getElementById('forwardBtn');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const homeBtn = document.getElementById('homeBtn');
+
+        const ieIcon = document.getElementById('ie-icon');
+        const trashIcon = document.getElementById('trash-icon');
+
+        // ====================== HISTORY ======================
+        let pageHistory = [];
+        let currentIndex = -1;
+        let isGoogiumMode = false;
+
+        const defaultURL = "http://www.meetniko.fyi/win98";
+        const googiumURL = "http://www.please.dont.sue.me.googium.net";
+        const defaultContentHTML = `
+<h1>Welcome to Windows 98 SE!</h1>
+            <h2>Thank you for choosing Windows 98 SE. Your system is now ready to use.</h2>
+            <ul>
+               
+            </ul>
+            <h2>About Windows:</h2>
+            <ul>
+                <li>Offering Internet Explorer 9.0 (UPDATED: 3/14/2011)</li>
+                <li>blah blah blah</li>
+                <li>    <li>
+                <li>This website provides a Windows 98 Second Edition (SE) emulator for educational and entertainment purposes only. The emulator is not an official Microsoft product, and Windows 98 SE is a registered trademark of Microsoft Corporation. By using this emulator, you agree that it is provided “as-is” for historical, educational, and nostalgic purposes. This emulator displays Internet Explorer logos for educational and entertainment purposes only.</li>
+            </ul>
+            <hr>
+            <p style="text-align:center;">&copy; 2026 www.meetniko.fyi</p>
+        `;
+
+        function pushHistory(url, isGoogium) {
+            pageHistory = pageHistory.slice(0, currentIndex + 1);
+            pageHistory.push({ url, isGoogium });
+            currentIndex++;
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            backBtn.disabled = currentIndex <= 0;
+            forwardBtn.disabled = currentIndex >= pageHistory.length - 1;
+        }
+
+        // ====================== PAGE LOADING (FIXED GOOGIUM) ======================
+        function loadDefault(noPush = false) {
+            isGoogiumMode = false;
+            pageContent.innerHTML = defaultContentHTML;
+            titlebarText.textContent = `Internet Explorer — ${defaultURL}`;
+            addressInput.value = defaultURL;
+            statusText.textContent = "Done";
+            if (!noPush) pushHistory(defaultURL, false);
+        }
+
+        function loadGoogium(noPush = false) {
+            isGoogiumMode = true;
+
+            // Clear and create fresh iframe with Blob (guaranteed to render)
+            pageContent.innerHTML = '';
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+
+            const blob = new Blob([googiumHTML], { type: 'text/html' });
+            iframe.src = URL.createObjectURL(blob);
+
+            pageContent.appendChild(iframe);
+
+            titlebarText.textContent = `Internet Explorer — ${googiumURL}`;
+            addressInput.value = googiumURL;
+            statusText.textContent = "Done";
+            if (!noPush) pushHistory(googiumURL, true);
+        }
+
+        function triggerLoadBar() {
+            toolbar.classList.remove('loading');
+            void toolbar.offsetWidth;
+            toolbar.classList.add('loading');
+        }
+
+        // ====================== NAVIGATION ======================
+        refreshBtn.addEventListener('click', () => {
+            triggerLoadBar();
+            statusText.textContent = "Loading...";
+            setTimeout(() => isGoogiumMode ? loadGoogium(true) : loadDefault(true), 420);
+        });
+
+        homeBtn.addEventListener('click', () => {
+            triggerLoadBar();
+            statusText.textContent = "Loading...";
+            setTimeout(() => loadGoogium(), 420);
+        });
+
+        backBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                const prev = pageHistory[currentIndex];
+                triggerLoadBar();
+                statusText.textContent = "Loading...";
+                setTimeout(() => prev.isGoogium ? loadGoogium(true) : loadDefault(true), 420);
+            }
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            if (currentIndex < pageHistory.length - 1) {
+                currentIndex++;
+                const next = pageHistory[currentIndex];
+                triggerLoadBar();
+                statusText.textContent = "Loading...";
+                setTimeout(() => next.isGoogium ? loadGoogium(true) : loadDefault(true), 420);
+            }
+        });
+
+        // ====================== WINDOW CONTROLS ======================
+        let zCounter = 30;
+
+        function bringToFront(win) {
+            win.style.zIndex = ++zCounter;
+        }
+
+        function makeDraggable(win) {
+            const titlebar = win.querySelector('.titlebar');
+            let offsetX, offsetY, isDragging = false;
+
+            titlebar.addEventListener('mousedown', (e) => {
+                if (win.classList.contains('maximized')) return;
+                bringToFront(win);
+                isDragging = true;
+                offsetX = e.clientX - win.offsetLeft;
+                offsetY = e.clientY - win.offsetTop;
+
+                const move = (ev) => {
+                    if (!isDragging) return;
+                    win.style.left = `${ev.clientX - offsetX}px`;
+                    win.style.top = `${ev.clientY - offsetY}px`;
+                };
+                const stop = () => {
+                    isDragging = false;
+                    document.removeEventListener('mousemove', move);
+                    document.removeEventListener('mouseup', stop);
+                };
+
+                document.addEventListener('mousemove', move);
+                document.addEventListener('mouseup', stop);
+            });
+        }
+
+        function toggleMaximize(win) {
+            win.classList.toggle('maximized');
+            bringToFront(win);
+        }
+
+        function setupWindow(win) {
+            const minimizeBtn = win.querySelector('.minimize-btn');
+            const maximizeBtn = win.querySelector('.maximize-btn');
+            const closeBtn = win.querySelector('.close-btn');
+
+            minimizeBtn.addEventListener('click', () => win.style.display = 'none');
+            closeBtn.addEventListener('click', () => win.style.display = 'none');
+            maximizeBtn.addEventListener('click', () => toggleMaximize(win));
+
+            makeDraggable(win);
+        }
+
+        // ====================== DESKTOP ICONS ======================
+        ieIcon.addEventListener('click', () => {
+            mainWindow.style.display = 'flex';
+            bringToFront(mainWindow);
+        });
+
+        trashIcon.addEventListener('click', () => {
+            trashWindow.style.display = 'flex';
+            bringToFront(trashWindow);
+        });
+
+        // ====================== INIT ======================
+        window.addEventListener('load', () => {
+            setupWindow(mainWindow);
+            setupWindow(trashWindow);
+
+            pageHistory = [{ url: defaultURL, isGoogium: false }];
+            currentIndex = 0;
+            updateNavButtons();
+            loadDefault(true);
+
+            bringToFront(mainWindow);
+            statusText.textContent = "Done";
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- TASKBAR HTML -->
+<div id="taskbar">
+    <div id="open-apps"></div>
+    <div id="taskbar-right">
+        <div id="sound-container">
+            <button id="sound-btn">♪</button>
+            <div id="sound-slider-container">
+                <div id="sound-slider-track">
+                    <div id="sound-slider-thumb"></div>
+                </div>
+            </div>
+        </div>
+        <div id="clock"></div>
+    </div>
+</div>
+
+<!-- TASKBAR CSS -->
+<style>
+/* TASKBAR BASE */
+#taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    background: #c0c0c0;
+    border-top: 2px solid #808080;
+    display: flex;
+    align-items: center;
+    font-family: 'VT323', monospace;
+    font-size: 0.85rem;
+    z-index: 1000;
+    padding: 0 6px;
+    box-sizing: border-box;
+}
+
+/* OPEN APPS AREA */
+#open-apps {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 2px;
+    overflow-x: auto;
+}
+
+.open-app {
+    background: #e0e0e0;
+    border: 1px solid #808080;
+    border-bottom: 2px solid #404040;
+    padding: 0 6px;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: inset 0 1px 0 #fff;
+}
+.open-app:hover {
+    background: #d0d0d0;
+}
+
+/* TASKBAR RIGHT SECTION */
+#taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* SOUND BUTTON & SLIDER - 90s STYLE */
+#sound-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Sound button */
+#sound-btn {
+    background: #e0e0e0;
+    border: 1px solid #808080;
+    border-bottom: 2px solid #404040;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: inset 0 1px 0 #fff;
+}
+
+/* Slider container (starts hidden) */
+#sound-slider-container {
+    width: 100px;
+    height: 12px;
+    background: #c0c0c0;
+    border: 1px solid #808080;
+    box-shadow: inset 0 1px 0 #fff;
+    position: absolute;
+    bottom: 36px;
+    left: -20px;
+    display: none; /* hidden initially */
+    align-items: center;
+    padding: 0 4px;
+}
+
+/* Slider track */
+#sound-slider-track {
+    flex: 1;
+    height: 6px;
+    background: #808080;
+    position: relative;
+}
+
+/* Slider thumb */
+#sound-slider-thumb {
+    width: 12px;
+    height: 12px;
+    background: #404040;
+    border: 1px solid #000;
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    cursor: pointer;
+}
+
+/* Show slider when container has active class */
+#sound-container.active #sound-slider-container {
+    display: flex;
+}
+
+/* CLOCK */
+#clock {
+    min-width: 90px;
+    text-align: center;
+}
+</style>
+
+<!-- TASKBAR JS -->
+<script>
+// CLOCK (spoof year 2006)
+function updateClock() {
+    const clock = document.getElementById('clock');
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2,'0');
+    const minutes = now.getMinutes().toString().padStart(2,'0');
+    const seconds = now.getSeconds().toString().padStart(2,'0');
+    const day = now.getDate().toString().padStart(2,'0');
+    const month = (now.getMonth()+1).toString().padStart(2,'0');
+    const year = 2012; // SPOOFED
+    clock.textContent = `${hours}:${minutes}:${seconds} ${month}/${day}/${year}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// SOUND BUTTON TOGGLE
+const soundBtn = document.getElementById('sound-btn');
+const soundContainer = document.getElementById('sound-container');
+soundBtn.addEventListener('click', () => {
+    soundContainer.classList.toggle('active');
+});
+
+// Simple 90s-style slider drag
+const sliderTrack = document.getElementById('sound-slider-track');
+const sliderThumb = document.getElementById('sound-slider-thumb');
+let isDragging = false;
+
+sliderThumb.addEventListener('mousedown', e => {
+    isDragging = true;
+    e.preventDefault();
+});
+
+document.addEventListener('mouseup', () => isDragging = false);
+
+document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const rect = sliderTrack.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    x = Math.max(0, Math.min(x, rect.width));
+    sliderThumb.style.left = `${x - sliderThumb.offsetWidth/2}px`;
+});
+
+// DYNAMIC OPEN APPS
+const openAppsContainer = document.getElementById('open-apps');
+
+function addOpenApp(appName) {
+    if ([...openAppsContainer.children].some(c => c.textContent === appName)) return;
+    const appEl = document.createElement('div');
+    appEl.className = 'open-app';
+    appEl.textContent = appName;
+    openAppsContainer.appendChild(appEl);
+}
+
+function removeOpenApp(appName) {
+    const appEl = [...openAppsContainer.children].find(c => c.textContent === appName);
+    if (appEl) openAppsContainer.removeChild(appEl);
+}
+
+// TRACK WINDOWS
+const mainWindowEl = document.getElementById('main-window');
+const trashWindowEl = document.getElementById('trash-window');
+
+function observeWindow(winEl, name) {
+    const observer = new MutationObserver(() => {
+        if (winEl.style.display !== 'none') addOpenApp(name);
+        else removeOpenApp(name);
+    });
+    observer.observe(winEl, { attributes: true, attributeFilter: ['style'] });
+}
+
+observeWindow(mainWindowEl, 'read this');
+observeWindow(trashWindowEl, 'if cute');
+</script>
+<link rel="stylesheet" href="style.css">
