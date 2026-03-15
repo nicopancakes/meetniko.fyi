@@ -1,0 +1,44 @@
+/* googium-fix.css – scrollbar-free version */
+
+/* Make iframe fill container without scrollbars */
+#screen iframe {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: hidden;        /* hide scrollbars */
+}
+
+/* Ensure iframe content stretches perfectly */
+.screen .page-content,
+.gcse-search,
+.search-container {
+    width: 100%;
+    max-width: 900px;        /* cap max width */
+    margin: 0 auto;
+    padding: 10px;           /* breathing room */
+    box-sizing: border-box;
+    overflow: hidden;         /* remove scrollbars inside */
+}
+
+/* Animated title scales to window width, no overflow */
+.animated-title {
+    font-size: clamp(32px, 6vw, 64px);
+    margin-top: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Individual letters spacing (title) */
+.animated-title span {
+    display: inline-block;
+    padding: 0 2px;
+}
+
+/* Search container adjustments */
+.search-container {
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+    overflow: hidden;         /* ensure no internal scrollbars */
+}
