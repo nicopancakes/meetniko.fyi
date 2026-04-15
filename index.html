@@ -1,512 +1,248 @@
+<!--
+⠀⢸⠂⠀⠀⠀⠘⣧⠀⠀⣟⠛⠲⢤⡀⠀⠀⣰⠏⠀⠀⠀⠀⠀⢹⡀
+⠀⡿⠀⠀⠀⠀⠀⠈⢷⡀⢻⡀⠀⠀⠙⢦⣰⠏⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⢀⣻⠞⠛⠀⠀⠀⠀⠻⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠛⠓⠒⠓⠓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀
+⠀⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⢀⡟⠀
+⠀⠘⣇⠀⠘⣿⠋⢹⠛⣿⡇⠀⠀⠀⠀⣿⣿⡇⠀⢳⠉⠀⣠⡾⠁⠀
+⣦⣤⣽⣆⢀⡇⠀⢸⡇⣾⡇⠀⠀⠀⠀⣿⣿⡷⠀⢸⡇⠐⠛⠛⣿⠀
+⠹⣦⠀⠀⠸⡇⠀⠸⣿⡿⠁⢀⡀⠀⠀⠿⠿⠃⠀⢸⠇⠀⢀⡾⠁⠀
+⠀⠈⡿⢠⢶⣡⡄⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⣴⣧⠆⠀⢻⡄⠀⠀
+⠀⢸⠃⠀⠘⠉⠀⠀⠀⠠⣄⡴⠲⠶⠴⠃⠀⠀⠀⠉⡀⠀⠀⢻⡄⠀
+⠀⠘⠒⠒⠻⢦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⠞⠛⠒⠛⠋⠁⠀
+⠀⠀⠀⠀⠀⠀⠸⣟⠓⠒⠂⠀⠀⠀⠀⠀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠙⣦⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣃⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⣹⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀
+
+meow meow meow mrrp meow meow mrrp mrrp meow mrrp purr meow meow meow meow 
+
+-->
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>meet the web</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta name="description" content="meow">
+  <title>buh</title>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #e8e8e8;
+      --muted: #aaaaaa;
+      --accent: #bb9af7;
+    }
 
-<!-- Retro thin font -->
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-  background-image: url('https://files.catbox.moe/1k3h9u.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
-  color: #ffffff;
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: normal;
-}
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 90px 24px 140px;
+      font-size: 17.5px;
+    }
 
-/* Wrapper */
-.wrapper {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 0 15px;
-  backdrop-filter: blur(3px);
-  background: rgba(0,0,0,0.5);
-}
+    h1 {
+      font-size: 42px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
 
-/* Header */
-header {
-  border-bottom: 2px solid #b19cd9;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-  text-align: center;
-}
+    .tagline {
+      font-size: 21px;
+      color: var(--accent);
+      margin-bottom: 50px;
+    }
 
-header h1 {
-  margin: 0;
-  font-size: 32px;
-  font-style: italic;  /* italic only */
-  font-weight: normal; /* remove bold */
-  color: #ffffff;
-  letter-spacing: 1px;
-}
+    p {
+      margin-bottom: 26px;
+      color: var(--muted);
+    }
 
-header p {
-  margin: 6px 0 0 0;
-  font-size: 14px;
-  font-weight: normal;
-  color: #ffffff;
-}
+    h2 {
+      font-size: 23px;
+      color: var(--accent);
+      margin: 55px 0 16px 0;
+      font-weight: 500;
+    }
 
-/* Marquee */
-marquee {
-  display: block;
-  margin: 15px 0 25px 0;
-  padding: 6px;
-  border: 1px solid #b19cd9;
-  background: rgba(0,0,0,0.7);
-  font-size: 13px;
-  font-weight: normal;
-  color: #ffffff;
-}
+    ul {
+      list-style: none;
+      padding-left: 4px;
+    }
 
-/* Grid */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 25px;
-}
+    li {
+      margin-bottom: 13px;
+    }
 
-/* Boxes */
-.section {
-  border: 1px solid #b19cd9;
-  padding: 16px;
-  background: rgba(0,0,0,0.75);
-  margin-bottom: 20px;
-  font-weight: normal;
-}
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
 
-.section h2 {
-  margin-top: 0;
-  font-size: 16px;
-  color: #ffffff;
-  border-bottom: 1px solid #b19cd9;
-  padding-bottom: 6px;
-  font-weight: normal;
-}
+    a:hover {
+      text-decoration: underline;
+      color: #d4b4ff;
+    }
+    .music-player {
+      margin-top: 70px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+    }
 
-/* Extra retro boxes */
-.extra-box {
-  border: 1px dashed #b19cd9;
-  padding: 12px;
-  background: rgba(10,10,10,0.6);
-  margin-bottom: 20px;
-  font-size: 13px;
-  color: #ffffff;
-  font-weight: normal;
-}
+    .now-playing {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
 
-/* Footer Buttons Box */
-.button-box {
-  border: 1px solid #b19cd9;
-  background: rgba(0,0,0,0.75);
-  text-align: center;
-  padding: 15px;
-  margin: 30px auto 40px auto;
-  font-weight: normal;
-}
+    .track-title {
+      font-size: 18px;
+      color: white;
+      margin-bottom: 18px;
+    }
 
-.button-box p {
-  font-size: 14px;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-.button-box a {
-  display: inline-block;
-  margin: 4px 6px;
-}
+    button {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 28px;
+      cursor: pointer;
+      padding: 4px;
+      transition: transform 0.2s;
+    }
 
-#copyButton {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 14px;
-  font-weight: normal;
-  background-color: rgba(0,0,0,0.75);
-  color: #ffffff;
-  border: 1px solid #b19cd9;
-  padding: 8px 12px;
-  cursor: pointer;
-  margin-top: 10px;
-}
+    button:hover {
+      transform: scale(1.15);
+    }
 
-#copyButton:hover {
-  background-color: rgba(50,30,60,0.8);
-}
+    .progress-container {
+      flex: 1;
+      height: 4px;
+      background: #333;
+      border-radius: 9999px;
+      cursor: pointer;
+      position: relative;
+    }
 
-.button-box small {
-  display: block;
-  font-size: 11px;
-  color: #ffffff;
-  margin-top: 4px;
-}
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent), #d4b4ff);
+      width: 0%;
+      border-radius: 9999px;
+      transition: width 0.1s linear;
+    }
 
-.section p,
-.section li,
-.extra-box p {
-  font-size: 14px;
-  line-height: 1.5em;
-  color: #ffffff;
-  font-weight: normal;
-}
-
-ul {
-  padding-left: 18px;
-  margin: 10px 0;
-}
-
-a {
-  color: #b19cd9;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-  color: #ffffff;
-}
-
-footer {
-  margin-top: 40px;
-  padding-top: 10px;
-  border-top: 1px solid #b19cd9;
-  font-size: 12px;
-  color: #ffffff;
-  text-align: center;
-}
-
-@media (max-width: 800px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  .button-box a {
-    margin: 4px 3px;
-  }
-}
-</style>
+    .time {
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 80px;
+      text-align: right;
+    }
+  </style>
 </head>
-
 <body>
-<div class="wrapper">
 
-<header>
-  <h1>meetniko.fyi</h1>
-  <p>available since the big 26</p>
-</header>
+  <h1>hii im niko</h1>
+  <p class="tagline">^ gay</p>
 
-<marquee scrollamount="4">
-i am me, i am one of the billions sons of the holy father.
-</marquee>
+  <p>
+    im niko, im a technology and radio enthusiast.
+  </p>
 
-<div class="grid">
+  <h2>find me online</h2>
+  <ul>
+    <li><a href="https://github.com/nicopancakes/meetniko.fyi" target="_blank">Find this Project on Github!</a></li>
+    <li><a href="https://nepafreq.org/" target="_blank">My other Website</a></li>
+  </ul>
+  <div class="music-player">
+    <div class="now-playing">now playing</div>
+    <div class="track-title" id="track-title">Your Song Title</div>
 
-  <div>
-    <div class="section">
-      <h2>links</h2>
-      <ul>
-        <li><a href="https://www.raspberrypi.com">Raspberry Pi</a></li>
-        <li><a href="https://weather.gov">NOAA Weather</a></li>
-        <li><a href="https://www.debian.org">Debian Linux</a></li>
-        <li><a href="https://meetniko.fyi/pages/directory.html">Site Directory</a></li>
-      </ul>
-    </div>
+    <audio id="audio" preload="metadata">
+      <source src="https://files.catbox.moe/wmrt1o.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
 
-    <div class="section">
-      <h2>be my friend requirements</h2>
-      <p>
-        must be sfw around me, plz.<br>
-        must be nice // kind etc.<br>
-        20+ DNI, ill consider 18-19yrs but probably decline kindly.
-      </p>
-    </div>
+    <div class="controls">
+      <button id="play-btn">▶</button>
+      
+      <div class="progress-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
 
-    <div class="extra-box">
-      <p>guess what</p>
-      <p>chicken butt!1!</p>
+      <div class="time" id="time">0:00 / 0:00</div>
     </div>
   </div>
 
-  <div>
-    <div class="section">
-      <h2>about me</h2>
-      <p>
-        hi, i'm niko (formally kuromu/chromium).<br><br>
-i like ham radio, im slowly getting into mechanics, some wood working. but mostly into (as said before!),,, ham radio! i cant get enoguh of how you can hear voices over radio waves! welcome to my corner of the internet, feel free to roam around.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>view this website on github.</h2>
-      <p>
-        &gt; <a href="https://github.com/nicopancakes/meetniko.fyi">meetniko.fyi</a>
-      </p>
-      <p>
-      </p>
-    </div>
-
-    <div class="extra-box">
-      <p>box about stuff</p>
-      <ul>
-        <li>my very own place on the internet, wow.. who knew just you can do a TON online!?</li>
-      </ul>
-    </div>
-
-    <div class="extra-box">
-      <p>contact:</p>
-      <a href="https://discord.com/users/1456658527497093207" target="_blank">my discord</a>
-    </div>
+  <div style="margin-top: 90px; padding-top: 32px; border-top: 1px solid #1f1f1f; text-align: center; color: #555; font-size: 15px;">
+made with 💖 by niko
   </div>
 
-</div>
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('play-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const timeDisplay = document.getElementById('time');
+    const trackTitle = document.getElementById('track-title');
 
-<div class="button-box">
-  <a href="https://meetniko.fyi/"><img src="https://files.catbox.moe/aw4znt.gif" width="100"></a>
-  <a href="https://vendicated.dev" title="vending machine" rel="nofollow"><img src="https://vendicated.dev/assets/88x31/me.gif" width="88" height="31"></a>
-  <a href="https://archlinux.org/" rel="nofollow"><img src="https://files.catbox.moe/bkj7g4.gif" width="88" height="31"></a>
-  <a href="https://yesterweb.org/no-to-web3/" rel="nofollow"><img src="https://files.catbox.moe/fe8ggz.gif" width="88" height="31"></a>
-  <a href="https://combatbaby.neocities.org/" rel="nofollow"><img src="https://files.catbox.moe/jzx1mm.gif" width="88" height="31"></a>
-  <a href="https://hoiidaygirl1225.neocities.org/" rel="nofollow"><img src="https://files.catbox.moe/l4lqw2.gif" width="88" height="31"></a>
+    trackTitle.textContent = "Basket Case";
 
-  <div style="margin-top: 15px;">
-    <button id="copyButton">use my button!</button>
-    <small>(pls no hotlinking though)</small>
-  </div>
-</div>
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return "0:00";
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60);
+      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
 
-<footer>
-no ads · manually updated
-</footer>
-
-</div>
-
-<script>
-const copyBtn = document.getElementById('copyButton');
-const badgeHTML = `<a href="https://meetniko.fyi/" title="" rel="nofollow"> 
-    <img src="https://files.catbox.moe/aw4znt.gif" alt="" width="88" height="31"/> 
-</a>`;
-
-copyBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText(badgeHTML).then(() => {
-    copyBtn.textContent = 'copied!';
-    setTimeout(() => { copyBtn.textContent = 'use my button!'; }, 1500);
-  }).catch(err => {
-    alert('Could not copy to clipboard.'); 
-  });
-});
-</script>
-
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '❚❚';
+      } else {
+        audio.pause();
+        playBtn.textContent = '▶';
+      }
+    });
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        
+        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      }
+    });
+    progressContainer.addEventListener('click', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pos * audio.duration;
+    });
+    audio.addEventListener('ended', () => {
+      playBtn.textContent = '▶';
+      progressBar.style.width = '0%';
+    });
+  </script>
+  <link rel="stylesheet" href="webkit.css">
 </body>
 </html>
-
-<head>
-  <meta property="og:title" content="welcome to meetniko." />
-  <meta property="og:type" content="video.other" />
-  <meta property="og:video" content="https://files.catbox.moe/mzu3qp.mp4" />
-  <meta property="og:video:type" content="video/mp4" />
-  <meta property="og:video:width" content="1280" />
-  <meta property="og:video:height" content="720" />
-</head>
-
-
-<!-- ===== MUSIC PLAYER ===== -->
-<style>
-/* PANEL BASE */
-.panel {
-  position: fixed;
-  top: 20px;
-  right: -250px;
-  width: 220px;
-  background: rgba(0,0,0,0.75);
-  border: 1px solid #b19cd9; /* pastel purple border */
-  color: #ffffff;
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: normal;
-  padding: 10px;
-  transition: right 0.5s;
-  z-index: 1000;
-}
-
-.panel.show { right: 20px; }
-
-.closeBtn {
-  float: right;
-  cursor: pointer;
-  color: #ffb6c1;
-  font-weight: normal;
-}
-
-/* POPUP */
-#musicPopup {
-  text-align: center;
-  cursor: pointer;
-  font-size: 13px;
-  color: #ffffff;
-  border: 1px dashed #b19cd9;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-/* PLAYER HEADER */
-.playerHeader {
-  border: 1px solid #b19cd9;
-  background: rgba(0,0,0,0.6);
-  padding: 6px;
-  text-align: center;
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-weight: normal;
-  color: #ffffff;
-}
-
-/* PROGRESS BAR */
-.meterOuter {
-  width: 100%;
-  height: 10px;
-  border: 1px solid #b19cd9;
-  background: rgba(0,0,0,0.5);
-  margin: 6px 0;
-}
-
-.meterInner {
-  height: 100%;
-  width: 0%;
-  background: #b19cd9;
-}
-
-/* TIME DISPLAY */
-.timeRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  margin-bottom: 6px;
-  color: #ffffff;
-}
-
-/* CONTROLS */
-.ctrlRow {
-  display: flex;
-  gap: 4px;
-}
-
-.ctrlRow button {
-  flex: 1;
-  background: rgba(0,0,0,0.6);
-  border: 1px solid #b19cd9;
-  color: #ffffff;
-  font-family: 'Share Tech Mono', monospace;
-  font-weight: normal;
-  cursor: pointer;
-  padding: 4px 0;
-  font-size: 12px;
-}
-
-.ctrlRow button:hover {
-  background: rgba(50,30,60,0.7);
-}
-</style>
-
-<div id="musicPopup" class="panel">
-  <span class="closeBtn" onclick="hideAll()">X</span>
-  click here to enable music!! :3
-</div>
-
-<div id="musicPlayer" class="panel">
-  <span class="closeBtn" onclick="hideAll()">X</span>
-  <div style="clear:both"></div>
-
-  <div id="songTitle" class="playerHeader">
-    READY
-  </div>
-
-  <div class="meterOuter">
-    <div id="meterFill" class="meterInner"></div>
-  </div>
-
-  <div class="timeRow">
-    <span id="tcur">0:00</span>
-    <span id="tdur">0:00</span>
-  </div>
-
-  <div class="ctrlRow">
-    <button onclick="prevSong()">PREV</button>
-    <button onclick="togglePlay()">PLAY</button>
-    <button onclick="nextSong()">NEXT</button>
-  </div>
-</div>
-
-<audio id="audio"></audio>
-
-<script>
-const tracks = [
-  {title:"i can see clearly", src:"https://files.catbox.moe/dm9nxg.mp3"},
-  {title:"school rooftop", src:"https://files.catbox.moe/y4r1r1.mp3"},
-  {title:"semi-charmed life", src:"https://files.catbox.moe/0vppb0.mp3"},
-  {title:"a2 - we dont have many days", src:"https://files.catbox.moe/xudmk4.mp3"},
-  {title:"basket case", src:"https://files.catbox.moe/wmrt1o.mp3"}
-];
-
-let idx = 0;
-
-const popup  = document.getElementById("musicPopup");
-const player = document.getElementById("musicPlayer");
-const audio  = document.getElementById("audio");
-const fill   = document.getElementById("meterFill");
-const title  = document.getElementById("songTitle");
-
-popup.classList.add("show");
-
-popup.onclick = (e)=>{
-  if(e.target.classList.contains("closeBtn")) return;
-  popup.classList.remove("show");
-  setTimeout(()=>{ player.classList.add("show"); }, 600);
-  load(idx);
-  audio.play();
-};
-
-function load(i){
-  audio.src = tracks[i].src;
-  title.textContent = tracks[i].title;
-}
-
-function togglePlay(){
-  audio.paused ? audio.play() : audio.pause();
-}
-
-function nextSong(){
-  idx = (idx + 1) % tracks.length;
-  load(idx);
-  audio.play();
-}
-
-function prevSong(){
-  idx = (idx - 1 + tracks.length) % tracks.length;
-  load(idx);
-  audio.play();
-}
-
-function hideAll(){
-  popup.classList.remove("show");
-  player.classList.remove("show");
-  audio.pause();
-}
-
-audio.addEventListener("timeupdate", ()=>{
-  if(!audio.duration) return;
-  fill.style.width = (audio.currentTime / audio.duration * 100) + "%";
-  document.getElementById("tcur").textContent = fmt(audio.currentTime);
-  document.getElementById("tdur").textContent = fmt(audio.duration);
-});
-
-audio.addEventListener("ended", nextSong);
-
-function fmt(t){
-  let m = Math.floor(t/60);
-  let s = Math.floor(t%60);
-  return m+":"+(s<10?"0"+s:s);
-}
-</script>
