@@ -22,227 +22,217 @@ meow meow meow mrrp meow meow mrrp mrrp meow mrrp purr meow meow meow meow
 -->
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
-  <meta name="description" content="meow">
-  <title>buh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>meow</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="meow">
+  <meta property="og:description" content="im so pupy">
+  <meta name="theme-color" content="#8fbc8f">
+
   <style>
     :root {
-      --bg: #0a0a0a;
-      --text: #e8e8e8;
-      --muted: #aaaaaa;
-      --accent: #bb9af7;
+      --color-bg: #0a0a0a;
+      --color-text: #c0c0c0;
+      --color-accent: #8fbc8f;
+      --color-accent-hover: #c8f0c8;
+      --color-text-shadow: #303030;
+      --color-heading-shadow: #232f23;
+      --color-hover-shadow: #323c32;
+      --color-muted: #555555;
+      --font-body: "Minecraft", sans-serif;
+      --font-heading: "Minecraft Bold", sans-serif;
+      --content-width: calc(30% + 200px);
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-size: 20px;
+      font-family: var(--font-body);
+      text-shadow: 1.5px 1.5px 0px var(--color-text-shadow);
+      letter-spacing: .6px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent) var(--color-bg);
     }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.8;
-      max-width: 620px;
-      margin: 0 auto;
-      padding: 90px 24px 140px;
-      font-size: 17.5px;
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-accent);
+      border-radius: 10px;
+      border: 2px solid var(--color-bg);
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: var(--color-bg);
+    }
+
+    #wrap {
+      width: var(--content-width);
+      min-width: 700px;
+      min-height: 100vh;
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 750px) {
+      #wrap {
+        width: 100%;
+        min-width: 0;
+        padding: 16px;
+      }
+    }
+
+    #main {
+      background: var(--color-bg);
+      padding-top: 12px;
+      text-align: left;
+      flex: 1;
     }
 
     h1 {
-      font-size: 42px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .tagline {
-      font-size: 21px;
-      color: var(--accent);
-      margin-bottom: 50px;
-    }
-
-    p {
-      margin-bottom: 26px;
-      color: var(--muted);
-    }
-
-    h2 {
-      font-size: 23px;
-      color: var(--accent);
-      margin: 55px 0 16px 0;
-      font-weight: 500;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 4px;
-    }
-
-    li {
-      margin-bottom: 13px;
+      color: var(--color-accent);
+      font-family: var(--font-heading);
+      text-shadow: 2px 2px 0 var(--color-heading-shadow);
+      margin: 0;
     }
 
     a {
-      color: var(--accent);
+      color: var(--color-accent);
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: underline;
-      color: #d4b4ff;
+    .footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      color: var(--color-muted);
+      font-size: .75em;
+      user-select: none;
     }
-    .music-player {
-      margin-top: 70px;
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 20px;
-    }
-
-    .now-playing {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 12px;
+    .txt-box {
+      margin-top: 40px;
+      border: 2px solid var(--color-accent);
+      background: var(--color-bg);
+      box-shadow: 2px 2px 0 var(--color-text-shadow);
+      width: fit-content;
     }
 
-    .track-title {
-      font-size: 18px;
-      color: white;
-      margin-bottom: 18px;
+    .txt-title {
+      padding: 6px 10px;
+      border-bottom: 2px solid var(--color-accent);
+      color: var(--color-accent);
+      font-size: 0.9em;
     }
 
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    button {
-      background: none;
+    .txt-box iframe {
+      width: 400px;
+      height: 325px;
       border: none;
-      color: var(--accent);
-      font-size: 28px;
-      cursor: pointer;
-      padding: 4px;
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.15);
-    }
-
-    .progress-container {
-      flex: 1;
-      height: 4px;
-      background: #333;
-      border-radius: 9999px;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(to right, var(--accent), #d4b4ff);
-      width: 0%;
-      border-radius: 9999px;
-      transition: width 0.1s linear;
-    }
-
-    .time {
-      font-size: 13px;
-      color: var(--muted);
-      min-width: 80px;
-      text-align: right;
+      display: block;
+      background: var(--color-bg);
+      color: var(--color-text);
     }
   </style>
 </head>
+
 <body>
+  <div id="wrap">
 
-  <h1>hii im niko</h1>
-  <p class="tagline">^ gay</p>
+    <nav class="nav">
+      <a href="https://meetniko.fyi/">home</a>
+      <a href="https://meetniko.fyi/win98">windows 98</a>
+    </nav>
 
-  <p>
-    im niko, im a technology and radio enthusiast.
-  </p>
-
-  <h2>find me online</h2>
-  <ul>
-    <li><a href="https://github.com/nicopancakes/meetniko.fyi" target="_blank">Find this Project on Github!</a></li>
-    <li><a href="https://nepafreq.org/" target="_blank">My other Website</a></li>
-  </ul>
-  <div class="music-player">
-    <div class="now-playing">now playing</div>
-    <div class="track-title" id="track-title">Your Song Title</div>
-
-    <audio id="audio" preload="metadata">
-      <source src="https://files.catbox.moe/wmrt1o.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-
-    <div class="controls">
-      <button id="play-btn">▶</button>
-      
-      <div class="progress-container" id="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
-
-      <div class="time" id="time">0:00 / 0:00</div>
+    <main id="main">
+      <h1>niko !!</h1>
+      <p>hii im <a href="/index.html">niko</a>, professional online puppyboy</p>
+      im a <a href="https://en.wikipedia.org/wiki/Amateur_radio">amateur radio</a> enthusiast.
+    </main>
+    <div class="txt-box">
+      <div class="txt-title">list of kiwi sdr's to hear the buzzer @ 4625 usb</div>
+      <iframe src="https://nepafreq.org/kiwisdr/thebuzzer/file.txt"></iframe>
     </div>
-  </div>
 
-  <div style="margin-top: 90px; padding-top: 32px; border-top: 1px solid #1f1f1f; text-align: center; color: #555; font-size: 15px;">
-made with 💖 by niko
-  </div>
+    <footer class="footer">
+      <span id="copyright">
+        &copy; <span id="year">2026</span> meetniko.fyi
+      </span>
+    </footer>
 
-  <script>
-    const audio = document.getElementById('audio');
-    const playBtn = document.getElementById('play-btn');
-    const progressContainer = document.getElementById('progress-container');
-    const progressBar = document.getElementById('progress-bar');
-    const timeDisplay = document.getElementById('time');
-    const trackTitle = document.getElementById('track-title');
+    <script type="module">
+      const e = document.getElementById("year"),
+            t = document.getElementById("copyright"),
+            n = 2026;
 
-    trackTitle.textContent = "Basket Case";
+      let o = n,
+          i = 0,
+          r = !1,
+          m = !1,
+          a = 0;
 
-    function formatTime(seconds) {
-      if (!seconds || isNaN(seconds)) return "0:00";
-      const min = Math.floor(seconds / 60);
-      const sec = Math.floor(seconds % 60);
-      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-    }
+      function d(t) {
+        const s = a ? (t - a) / 1000 : 1 / 60;
+        a = t;
 
-    playBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        playBtn.textContent = '❚❚';
-      } else {
-        audio.pause();
-        playBtn.textContent = '▶';
+        i = Math.min(i + 8 * s, 20);
+
+        if (r) o += i * s;
+        else if (o -= i * s, o <= n) {
+          o = n;
+          i = 0;
+          m = !1;
+          a = 0;
+          e.textContent = String(n);
+          return;
+        }
+
+        e.textContent = String(Math.floor(o));
+        requestAnimationFrame(d);
       }
-    });
-    audio.addEventListener('timeupdate', () => {
-      if (audio.duration) {
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-        
-        timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+
+      function s() {
+        if (!m) {
+          m = !0;
+          a = 0;
+          requestAnimationFrame(d);
+        }
       }
-    });
-    progressContainer.addEventListener('click', (e) => {
-      const rect = progressContainer.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = pos * audio.duration;
-    });
-    audio.addEventListener('ended', () => {
-      playBtn.textContent = '▶';
-      progressBar.style.width = '0%';
-    });
-  </script>
-  <link rel="stylesheet" href="webkit.css">
+
+      t.addEventListener("mouseenter", () => {
+        r = !0;
+        i = 0;
+        s();
+      });
+
+      t.addEventListener("mouseleave", () => {
+        r = !1;
+        i = 0;
+        s();
+      });
+    </script>
+
+  </div>
 </body>
 </html>
