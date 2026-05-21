@@ -1,0 +1,259 @@
+<!--
+⠀⢸⠂⠀⠀⠀⠘⣧⠀⠀⣟⠛⠲⢤⡀⠀⠀⣰⠏⠀⠀⠀⠀⠀⢹⡀
+⠀⡿⠀⠀⠀⠀⠀⠈⢷⡀⢻⡀⠀⠀⠙⢦⣰⠏⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⢀⣻⠞⠛⠀⠀⠀⠀⠻⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠛⠓⠒⠓⠓⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀
+⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠀
+⠀⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⢀⡟⠀
+⠀⠘⣇⠀⠘⣿⠋⢹⠛⣿⡇⠀⠀⠀⠀⣿⣿⡇⠀⢳⠉⠀⣠⡾⠁⠀
+⣦⣤⣽⣆⢀⡇⠀⢸⡇⣾⡇⠀⠀⠀⠀⣿⣿⡷⠀⢸⡇⠐⠛⠛⣿⠀
+⠹⣦⠀⠀⠸⡇⠀⠸⣿⡿⠁⢀⡀⠀⠀⠿⠿⠃⠀⢸⠇⠀⢀⡾⠁⠀
+⠀⠈⡿⢠⢶⣡⡄⠀⠀⠀⠀⠉⠁⠀⠀⠀⠀⠀⣴⣧⠆⠀⢻⡄⠀⠀
+⠀⢸⠃⠀⠘⠉⠀⠀⠀⠠⣄⡴⠲⠶⠴⠃⠀⠀⠀⠉⡀⠀⠀⢻⡄⠀
+⠀⠘⠒⠒⠻⢦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⠞⠛⠒⠛⠋⠁⠀
+⠀⠀⠀⠀⠀⠀⠸⣟⠓⠒⠂⠀⠀⠀⠀⠀⠈⢷⡀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠙⣦⠀⠀⠀⠀⠀⠀⠀⠀⠈⢷⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣼⣃⡀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠉⣹⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡆⠀⠀⠀⠀⠀
+
+meow meow meow mrrp meow meow mrrp mrrp meow mrrp purr meow meow meow meow 
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>meow</title>
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="meow">
+  <meta property="og:description" content="im so pupy">
+  <meta name="theme-color" content="#8fbc8f">
+
+  <style>
+    :root {
+      --color-bg: #0a0a0a;
+      --color-text: #c0c0c0;
+      --color-accent: #8fbc8f;
+      --color-accent-hover: #c8f0c8;
+      --color-text-shadow: #303030;
+      --color-heading-shadow: #232f23;
+      --color-hover-shadow: #323c32;
+      --color-muted: #555555;
+      --font-body: "Minecraft", sans-serif;
+      --font-heading: "Minecraft Bold", sans-serif;
+      --content-width: calc(30% + 200px);
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-size: 20px;
+      font-family: var(--font-body);
+      text-shadow: 1.5px 1.5px 0px var(--color-text-shadow);
+      letter-spacing: .6px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-accent) var(--color-bg);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: var(--color-accent);
+      border-radius: 10px;
+      border: 2px solid var(--color-bg);
+    }
+
+    ::-webkit-scrollbar-corner {
+      background: var(--color-bg);
+    }
+
+    #wrap {
+      width: var(--content-width);
+      min-width: 700px;
+      min-height: 100vh;
+      padding: 24px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 750px) {
+      #wrap {
+        width: 100%;
+        min-width: 0;
+        padding: 16px;
+      }
+    }
+
+    #main {
+      background: var(--color-bg);
+      padding-top: 12px;
+      text-align: left;
+      flex: 1;
+    }
+
+    h1 {
+      color: var(--color-accent);
+      font-family: var(--font-heading);
+      text-shadow: 2px 2px 0 var(--color-heading-shadow);
+      margin: 0;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      color: var(--color-muted);
+      font-size: .75em;
+      user-select: none;
+    }
+    .txt-box {
+      margin-top: 40px;
+      border: 2px solid var(--color-accent);
+      background: var(--color-bg);
+      box-shadow: 2px 2px 0 var(--color-text-shadow);
+      width: fit-content;
+    }
+
+    .txt-title {
+      padding: 6px 10px;
+      border-bottom: 2px solid var(--color-accent);
+      color: var(--color-accent);
+      font-size: 0.9em;
+    }
+
+    .txt-box iframe {
+      width: 423px;
+      height: 325px;
+      border: none;
+      display: block;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+
+    <nav class="nav">
+      <a href="https://meetniko.fyi/">home</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+            <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+            <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+            <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+            <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      <a href="https://meetniko.fyi/">-</a>
+      
+      
+      <a href="https://meetniko.fyi/toolkat">tool kat</a>
+    </nav>
+
+    <main id="main">
+      <h1>niko !!</h1>
+      <p>hii im <a href="/index.html">niko</a>, professional online puppyboy</p>
+      im a <a href="https://en.wikipedia.org/wiki/Amateur_radio">amateur radio</a> enthusiast.
+    </main>
+    <div class="txt-box">
+      <div class="txt-title">list of kiwi sdr's to hear the buzzer @ 4625 usb</div>
+      <iframe src="https://nepafreq.org/kiwisdr/thebuzzer/file.txt"></iframe>
+    </div>
+
+    <footer class="footer">
+      <span id="copyright">
+        &copy; <span id="year">2026</span> meetniko.fyi
+      </span>
+    </footer>
+
+    <script type="module">
+      const e = document.getElementById("year"),
+            t = document.getElementById("copyright"),
+            n = 2026;
+
+      let o = n,
+          i = 0,
+          r = !1,
+          m = !1,
+          a = 0;
+
+      function d(t) {
+        const s = a ? (t - a) / 1000 : 1 / 60;
+        a = t;
+
+        i = Math.min(i + 8 * s, 20);
+
+        if (r) o += i * s;
+        else if (o -= i * s, o <= n) {
+          o = n;
+          i = 0;
+          m = !1;
+          a = 0;
+          e.textContent = String(n);
+          return;
+        }
+
+        e.textContent = String(Math.floor(o));
+        requestAnimationFrame(d);
+      }
+
+      function s() {
+        if (!m) {
+          m = !0;
+          a = 0;
+          requestAnimationFrame(d);
+        }
+      }
+
+      t.addEventListener("mouseenter", () => {
+        r = !0;
+        i = 0;
+        s();
+      });
+
+      t.addEventListener("mouseleave", () => {
+        r = !1;
+        i = 0;
+        s();
+      });
+    </script>
+
+  </div>
+</body>
+</html>
