@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; }
+    .result-card { transition: all 0.2s ease; }
+    .result-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+    .chip { transition: all 0.2s ease; }
+    .chip.active {
+      background-color: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen">
+
+  <header class="border-b border-zinc-800 bg-zinc-900">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold tracking-tight">meetniko.fyi/gitspd</h1>
+      <nav class="flex gap-6 text-sm">
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold mb-2">GitSPD</h2>
+      <p class="text-zinc-400">Fast and private data lookup tool for Github Search</p>
+    </div>
+
+    <div class="max-w-6xl mx-auto mb-8">
+      <p class="text-zinc-400 text-sm mb-3 text-center">Select Category</p>
+      <div class="flex gap-2 mb-6 flex-wrap justify-center" id="categories"></div>
+
+      <div class="text-center">
+        <button id="searchBtn" class="bg-blue-600 hover:bg-blue-500 px-12 py-4 rounded-2xl font-semibold text-lg transition-colors">
+          Search This Category
+        </button>
+      </div>
+    </div>
+
+    <div id="results" class="hidden">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-semibold" id="resultTitle">Results</h3>
+        <p class="text-zinc-400 text-sm" id="resultSubtitle"></p>
+      </div>
+      <div id="resultsContainer" class="space-y-4"></div>
+    </div>
+
+    <div id="emptyState" class="text-center py-20 text-zinc-500">
+      <i class="fa-solid fa-magnifying-glass text-5xl mb-4 opacity-50"></i>
+      <p class="text-lg">Select a category and click "Search This Category"</p>
+    </div>
+  </main>
+
+  <script>
+    const allPresets = [
+      { category: "OpenAI", title: "Google Dork", content: '(path:.env OR path:.env.* OR extension:env OR extension:json OR extension:yml) "sk-" (openai OR gpt OR OPENAI_API_KEY)', source: "Undefined" },
+      { category: "Anthropic", title: "Google Dork", content: '(path:.env OR extension:env OR extension:json) "sk-ant-" anthropic', source: "Undefined" },
+      { category: "Groq", title: "Google Dork", content: '(path:.env OR extension:env OR extension:json) gsk_ groq', source: "Undefined" },
+      { category: "Google Gemini", title: "Google Dork", content: '(path:.env OR extension:env OR extension:json) (gemini OR GOOGLE_API_KEY OR AIza)', source: "Undefined" },
+      { category: "AWS", title: "Google Dork", content: '(path:.env OR extension:env) (AKIA OR aws_access_key_id OR AWS_SECRET_ACCESS_KEY)', source: "Undefined" },
+      { category: "Azure", title: "Google Dork", content: '(path:.env OR extension:env OR extension:json) AZURE_CLIENT_SECRET', source: "Undefined" },
+      { category: "GCP", title: "Google Dork", content: '(path:.env OR extension:json) "type": "service_account" private_key', source: "Undefined" },
+      { category: "Cloudflare", title: "Google Dork", content: '(path:.env OR extension:env) (CF_API_TOKEN OR CF_TOKEN)', source: "Undefined" },
+      { category: "Vercel", title: "Google Dork", content: '(path:.env OR extension:env) (vercel OR VERCEL_TOKEN)', source: "Undefined" },
+      { category: "Netlify", title: "Google Dork", content: '(path:.env OR extension:env) NETLIFY_API_TOKEN', source: "Undefined" },
+      { category: "Heroku", title: "Google Dork", content: '(path:.env OR extension:env) HEROKU_API_KEY', source: "Undefined" },
+      { category: "Stripe", title: "Google Dork", content: '(path:.env OR extension:env) (sk_live_ OR rk_live_ OR pk_live_)', source: "Undefined" },
+      { category: "PayPal", title: "Google Dork", content: '(path:.env OR extension:env) paypal (client_secret OR AQ)', source: "Undefined" },
+      { category: "Discord", title: "Google Dork", content: '(path:.env OR extension:env) discord (webhook OR "discord.com/api/webhooks/")', source: "Undefined" },
+      { category: "Slack", title: "Google Dork", content: '(path:.env OR extension:env) (xoxb- OR xoxp-)', source: "Undefined" },
+      { category: "Twilio", title: "Google Dork", content: '(path:.env OR extension:env) "AC" twilio', source: "Undefined" },
+      { category: "Firebase", title: "Google Dork", content: '(path:.env OR extension:json) firebase apiKey AIza', source: "Undefined" },
+      { category: "Supabase", title: "Google Dork", content: '(path:.env OR extension:env) supabase (anon_key OR service_role_key)', source: "Undefined" },
+      { category: "GitHub", title: "Google Dork", content: '(ghp_ OR gho_ OR ghu_ OR ghs_ OR ghr_)', source: "Undefined" },
+      { category: "SSH", title: "Google Dork", content: '("BEGIN RSA PRIVATE KEY" OR "BEGIN OPENSSH PRIVATE KEY")', source: "Undefined" },
+      { category: "Replicate", title: "Google Dork", content: '(path:.env OR extension:env) replicate api_key', source: "Undefined" },
+      { category: "ElevenLabs", title: "Google Dork", content: '(path:.env OR extension:env) elevenlabs api_key', source: "Undefined" },
+      { category: "Shopify", title: "Google Dork", content: '(path:.env OR extension:env) shpat_ shopify', source: "Undefined" },
+      { category: "Clerk", title: "Google Dork", content: '(path:.env OR extension:env) clerk sk_', source: "Undefined" },
+      { category: "JWT", title: "Google Dork", content: '(path:.env OR extension:env) JWT_SECRET', source: "Undefined" },
+      { category: "Redis", title: "Google Dork", content: '(path:.env OR extension:env) REDIS_PASSWORD', source: "Undefined" },
+      { category: "Database URL", title: "Google Dork", content: '(path:.env OR extension:env) (DATABASE_URL OR postgresql:// OR mongodb+srv://)', source: "Undefined" },
+    ];
+
+    const presetsByCategory = {};
+    allPresets.forEach(item => {
+      if (!presetsByCategory[item.category]) presetsByCategory[item.category] = [];
+      presetsByCategory[item.category].push(item);
+    });
+
+    const categories = [
+      "OpenAI","Anthropic","Groq","Google Gemini","AWS","Azure","GCP","Cloudflare",
+      "Vercel","Netlify","Heroku","Stripe","PayPal","Discord","Slack","Twilio",
+      "Firebase","Supabase","GitHub","SSH","Replicate","ElevenLabs","Shopify",
+      "Clerk","JWT","Redis","Database URL"
+    ];
+
+    const catContainer = document.getElementById('categories');
+    
+    categories.forEach(cat => {
+      const chip = document.createElement('button');
+      chip.textContent = cat;
+      chip.className = `chip px-5 py-2.5 rounded-full border border-zinc-700 text-sm hover:border-blue-500 transition-colors m-1`;
+      chip.dataset.category = cat;
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+      catContainer.appendChild(chip);
+    });
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const notif = document.createElement('div');
+        notif.className = "fixed bottom-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-xl shadow-xl flex items-center gap-2 z-50";
+        notif.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
+        document.body.appendChild(notif);
+        setTimeout(() => notif.remove(), 2000);
+      });
+    }
+
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const activeChip = document.querySelector('.chip.active');
+      if (!activeChip) {
+        alert("Please select a category first");
+        return;
+      }
+
+      const category = activeChip.dataset.category;
+      const results = presetsByCategory[category] || [];
+
+      document.getElementById('emptyState').classList.add('hidden');
+      document.getElementById('results').classList.remove('hidden');
+
+      document.getElementById('resultTitle').textContent = `${category} Results`;
+      document.getElementById('resultSubtitle').textContent = `Found ${results.length} dorks`;
+
+      const container = document.getElementById('resultsContainer');
+      container.innerHTML = '';
+
+      results.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `result-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6`;
+        card.innerHTML = `
+          <div class="flex justify-between items-start mb-3">
+            <h4 class="font-medium text-blue-400">${item.title}</h4>
+            <span class="text-xs text-zinc-500">${item.source}</span>
+          </div>
+          <p class="text-sm font-mono bg-zinc-950 border border-zinc-700 rounded-xl p-5 mb-4 break-all whitespace-pre-wrap leading-relaxed">
+            ${item.content}
+          </p>
+          <button onclick="copyToClipboard('${item.content.replace(/'/g, "\\'")}')" 
+                  class="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors">
+            <i class="fa-solid fa-copy"></i>
+            <span class="text-sm">Copy Dork</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
