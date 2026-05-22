@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebView for Excel</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #dropZone {
+      border: 3px dashed #888;
+      padding: 40px;
+      text-align: center;
+      border-radius: 10px;
+      color: #555;
+      transition: 0.2s;
+    }
+
+    #dropZone.dragover {
+      background: #f0fff0;
+      border-color: #2e7d32;
+      color: #2e7d32;
+    }
+
+    select {
+      margin-top: 10px;
+      padding: 6px;
+      display: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #ccc;
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f2f2f2;
+    }
+
+    .error {
+      color: red;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>WebView for Microsoft Excel</h2>
+
+<div id="dropZone">
+  >Drop files here<<br>
+  <small>
+    .xlsx .xls .xlsm .xlsb .xltx .xltm .xlt .xlam .xla .xlw<br>
+    .csv .tsv .txt .prn .dif .slk .dbf .htm .html .mht .mhtml .xml
+  </small>
+</div>
+
+<select id="sheetSelect"></select>
+<div id="output"></div>
+
+<script>
+const dropZone = document.getElementById("dropZone");
+const output = document.getElementById("output");
+const sheetSelect = document.getElementById("sheetSelect");
+
+let workbook = null;
+["dragenter","dragover","dragleave","drop"].forEach(evt => {
+  dropZone.addEventListener(evt, e => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+});
+
+["dragenter","dragover"].forEach(evt => {
+  dropZone.addEventListener(evt, () => dropZone.classList.add("dragover"));
+});
+
+["dragleave","drop"].forEach(evt => {
+  dropZone.addEventListener(evt, () => dropZone.classList.remove("dragover"));
+});
+
+dropZone.addEventListener("drop", handleDrop);
+
+function handleDrop(e) {
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+
+  const ext = file.name.split(".").pop().toLowerCase();
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+    try {
+      const data = event.target.result;
+      if (isSheetFormat(ext)) {
+        const arr = new Uint8Array(data);
+
+        workbook = XLSX.read(arr, {
+          type: "array",
+          cellDates: true,
+          raw: true
+        });
+
+        setupSheets();
+        renderSheet(workbook.SheetNames[0]);
+      }
+      else if (ext === "htm" || ext === "html" || ext === "mht" || ext === "mhtml") {
+        const text = new TextDecoder().decode(data);
+        const doc = new DOMParser().parseFromString(text, "text/html");
+
+        const table = doc.querySelector("table");
+
+        output.innerHTML = table
+          ? table.outerHTML
+          : "<div class='error'>No table found in HTML file.</div>";
+
+        sheetSelect.style.display = "none";
+      }
+      else if (ext === "xml") {
+        const text = new TextDecoder().decode(data);
+
+        const parsed = XLSX.read(text, { type: "string" });
+
+        workbook = parsed;
+        setupSheets();
+        renderSheet(workbook.SheetNames[0]);
+      }
+
+      else {
+        output.innerHTML = "<div class='error'>Unsupported file type.</div>";
+      }
+
+    } catch (err) {
+      console.error(err);
+      output.innerHTML = "<div class='error'>Failed to parse file.</div>";
+    }
+  };
+
+  reader.readAsArrayBuffer(file);
+}
+
+function isSheetFormat(ext) {
+  return [
+    "xlsx","xls","xlsm","xlsb",
+    "xltx","xltm","xlt",
+    "xla","xlam","xlw",
+    "csv","tsv","txt","prn",
+    "dif","slk","dbf"
+  ].includes(ext);
+}
+
+function setupSheets() {
+  sheetSelect.innerHTML = "";
+
+  if (!workbook) return;
+
+  if (workbook.SheetNames.length > 1) {
+    sheetSelect.style.display = "block";
+
+    workbook.SheetNames.forEach(name => {
+      const opt = document.createElement("option");
+      opt.value = name;
+      opt.textContent = name;
+      sheetSelect.appendChild(opt);
+    });
+
+    sheetSelect.onchange = () => renderSheet(sheetSelect.value);
+  } else {
+    sheetSelect.style.display = "none";
+  }
+}
+
+function renderSheet(name) {
+  const sheet = workbook.Sheets[name];
+  const html = XLSX.utils.sheet_to_html(sheet);
+  output.innerHTML = html;
+}
+</script>
+
+</body>
+</html>
