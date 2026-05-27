@@ -1,6 +1,0 @@
-http://21612.proxy2.kiwisdr.com:8073/
-http://178.63.122.223:8073/
-http://kiwisdr.dl1rf.ipv64.de:8073/
-http://sa4bna.hopto.org:8074/
-http://kiwisdr.sk2hg.se:8073/
-http://sk6ag3.ddns.net:8073/
