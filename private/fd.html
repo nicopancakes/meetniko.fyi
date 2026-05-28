@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  font-family:'Georgia','Times New Roman',serif;
+  background:#f9f9f7;
+  color:#111;
+  margin:0;
+  padding:30px;
+  line-height:1.5;
+}
+
+.header{
+  text-align:center;
+  border-bottom:3px double #000;
+  padding-bottom:15px;
+  margin-bottom:25px;
+}
+
+h1{
+  font-size:2.4em;
+  margin:0;
+  letter-spacing:2px;
+}
+
+.subtitle{
+  font-style:italic;
+  font-size:1.05em;
+  margin-top:8px;
+  color:#333;
+}
+
+.search-container{
+  text-align:center;
+  margin:20px 0 25px;
+}
+
+#search{
+  width:580px;
+  max-width:95%;
+  padding:10px 14px;
+  font-size:1.05em;
+  border:2px solid #000;
+  border-radius:3px;
+  background:#fff;
+  font-family:'Georgia',serif;
+}
+
+.file-grid{
+  max-width:1100px;
+  margin:0 auto;
+  border:2px solid #000;
+  background:#fff;
+}
+
+.file-box{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 14px;
+  min-height:42px;
+  border-bottom:1px solid #aaa;
+  transition:0.1s ease;
+}
+
+.file-box:last-child{
+  border-bottom:none;
+}
+
+.file-box:hover{
+  background:#f5f5f5;
+}
+
+.file-left{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  min-width:0;
+}
+
+.file-name{
+  font-weight:bold;
+  font-size:1em;
+  word-break:break-word;
+}
+
+.file-size{
+  color:#555;
+  font-size:0.92em;
+  white-space:nowrap;
+}
+
+.view-btn{
+  text-decoration:none;
+  color:#000;
+  border:1px solid #000;
+  padding:4px 10px;
+  font-family:'Georgia',serif;
+  font-size:0.92em;
+  background:#fff;
+  transition:0.1s ease;
+  white-space:nowrap;
+}
+
+.view-btn:hover{
+  background:#000;
+  color:#fff;
+}
+
+.empty{
+  text-align:center;
+  padding:30px;
+  font-style:italic;
+  color:#555;
+}
+
+@media(max-width:700px){
+  .file-box{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .file-left{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:3px;
+  }
+
+  .view-btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>FreqDump</h1>
+  <p class="subtitle">unsorted, frequency data dump.</p>
+</div>
+
+<div class="search-container">
+  <input
+    type="text"
+    id="search"
+    placeholder="Search file name..."
+    autofocus
+  >
+</div>
+
+<div class="file-grid" id="fileGrid"></div>
+
+<script> 
+const files = [
+  {
+    name: "pike-db1-001.txt",
+    size: "1 B",
+    link: "https://raw.githubusercontent.com/nicopancakes/freqdump/refs/heads/main/db.txt"
+  },
+  {
+    name: "monroe-db2-002.txt",
+    link: "https://raw.githubusercontent.com/nicopancakes/freqdump/refs/heads/main/monroe-db2.txt"
+  },
+  {
+    name: "wayne-003-db3.txt",
+    size: "Undefined",
+    link: "https://raw.githubusercontent.com/nicopancakes/freqdump/refs/heads/main/wayne-002-db3.txt"
+  }
+];
+
+function renderFiles(data){
+  const grid = document.getElementById("fileGrid");
+  grid.innerHTML = "";
+
+  if(data.length === 0){
+    grid.innerHTML = `
+      <div class="empty">
+        No matching files found.
+      </div>
+    `;
+    return;
+  }
+
+  data.forEach(file => {
+    const box = document.createElement("div");
+    box.className = "file-box";
+
+    box.innerHTML = `
+      <div class="file-left">
+        <div class="file-name">${file.name}</div>
+        <div class="file-size">${file.size}</div>
+      </div>
+
+      <a href="${file.link}" class="view-btn">
+        View
+      </a>
+    `;
+
+    grid.appendChild(box);
+  });
+}
+
+function filterFiles(){
+  const search = document
+    .getElementById("search")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const filtered = files.filter(file =>
+    file.name.toLowerCase().includes(search)
+  );
+
+  renderFiles(filtered);
+}
+
+document
+  .getElementById("search")
+  .addEventListener("input", filterFiles);
+
+renderFiles(files);
+</script>
+
+</body>
+</html> 
