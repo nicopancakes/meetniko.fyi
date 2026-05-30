@@ -1,0 +1,299 @@
+------------------------------------------ WEBCAMS / CAMERAS:
+intitle:"Live View / - AXIS"
+intitle:"D-Link" inurl:"/video.htm"
+intitle:"Linksys Viewer - Login" -inurl:mainFrame
+intitle:"netcam watcher"
+intitle:"Network Camera NetworkCamera"
+intitle:"TP-LINK IP-Camera"
+intitle:"Webcam" inurl:WebCam.htm
+intitle:"webcamXP 5"
+intitle:webcamxp inurl:8080
+inurl:"axis-cgi/mjpg"
+inurl:"control/userimage.html"
+inurl:top.htm inurl:currenttime
+inurl:"CgiStart?page="
+inurl:camctrl.cgi
+inurl:"view/index.shtml"
+intitle:"IP CAMERA Viewer" intext:"setting |Client setting"
+intitle:"Device(" AND intext:"Network Camera"
+intitle:"webcam 7" inurl:"/gallery.html"
+intitle:"yawcam" inurl:":8081"
+intitle:"iGuard Fingerprint Security System"
+(intitle:MOBOTIX intitle:PDAS) | (intitle:MOBOTIX intitle:Seiten)
+inurl:/pda/index.html camera
+intitle:"i-Catcher Console - Web Monitor"
+inurl:"videomgr.html" "Android IP Webcam"
+inurl:lvappl.htm
+inurl:"viewerframe?mode="
+intitle:"webcam" "live view"
+intitle:"SNC-RZ" inurl:home
+intitle:"Sony Network Camera"
+intitle:"Toshiba Network Camera"
+inurl:/view.shtml
+intitle:"Live Webcam" "MJPG"
+inurl:/axis-cgi/jpg
+------------------------------------------ LOGIN PAGES / ADM PANELS:
+inurl:admin login
+intitle:"Admin Login"
+intitle:"Dashboard Login"
+inurl:/admin/login.php
+inurl:adminpanel
+intitle:"Login" "admin" "password"
+intext:"IMail Server Web Messaging" intitle:login
+intitle:"Admin Panel" inurl:login
+inurl:wp-admin
+inurl:administrator
+inurl:cpanel
+intitle:"phpMyAdmin" inurl:index.php
+inurl:/manager/login
+inurl:site/login
+intitle:"Web Site Administration" "admin login"
+inurl:login.asp
+inurl:login.aspx
+inurl:login.jsp
+intitle:"Joomla - Log in"
+intitle:"WordPress Login"
+intitle:"vBulletin" "admin control panel"
+inurl:/admin/index.php
+inurl:/wp-login.php
+inurl:/administrator/index.php
+inurl:panel/login
+intitle:"Admin Login" "Username" "Password"
+inurl:auth/login
+inurl:secure/login
+intitle:"Login - Administration"
+inurl:console/login
+inurl:manager/html
+inurl:webmin
+inurl:roundcube
+inurl:squirrelmail
+inurl:exchange
+intitle:"Outlook Web Access"
+inurl:/login/index.php
+inurl:backend/login
+intitle:"Admin area" "login"
+inurl:adm
+inurl:controlpanel
+inurl:moderator
+inurl:dashboard
+------------------------------------------ SENS DOCUMENTS / JUICY INFO:
+filetype:pdf "confidential"
+filetype:xls "password"
+filetype:doc "confidential"
+intitle:"index of" "parent directory"
+filetype:pdf "strictly confidential"
+intext:"password" filetype:log
+filetype:sql "password"
+filetype:xlsx "username" "password"
+intitle:"index of" backups
+filetype:pdf site:example.com "internal use only"
+filetype:doc "budget" "confidential"
+inurl:backup filetype:zip
+intitle:"index of" "email.xls"
+filetype:txt "password"
+filetype:env "DB_PASSWORD"
+intext:"BEGIN RSA PRIVATE KEY"
+filetype:ppt "confidential"
+intitle:"index of" "financial"
+filetype:csv "email" "password"
+inurl:documents filetype:pdf "secret"
+filetype:bak "config"
+intitle:"index of" "logs"
+filetype:log "root" "password"
+inurl:private filetype:pdf
+filetype:sql "INSERT INTO" "users"
+intext:"api_key" filetype:txt
+intext:"secret_key" filetype:env
+filetype:pdf "company confidential"
+intitle:"index of" "sensitive"
+------------------------------------------ VULNERABILITIES:
+inurl:php?id=
+inurl:product.php?pid=
+inurl:details.php?id=
+inurl:page.php?id=
+inurl:news.php?id=
+inurl:search.php?q=
+inurl:index.php?id=
+inurl:view.php?id=
+inurl:category.php?cat=
+ext:php inurl:?id=
+inurl:"?id=" "SELECT"
+inurl:"?id=" site:.com
+inurl:vulnerable.php
+inurl:upload.php
+inurl:shell.php
+inurl:cmd.php
+intitle:"index of" "shell"
+inurl:backup.sql
+inurl:config.php
+inurl:dbconnect.php
+inurl:phpinfo.php
+inurl:test.php
+inurl:debug.php
+inurl:error.log
+inurl:web.config
+inurl:.git
+inurl:.svn
+inurl:/.env
+inurl:wp-config.php
+inurl:config.inc.php
+inurl:settings.php
+------------------------------------------ DATABASE DUMP / BACKUP DB:
+filetype:sql "MySQL dump"
+filetype:sql "INSERT INTO" "password"
+intitle:"index of" "dump.sql"
+intitle:"index of" "database.sql"
+filetype:sql intext:username password
+ext:sql intext:"-- MySQL dump"
+filetype:sql "backup"
+intitle:"index of" backup.sql
+inurl:db_backup
+inurl:database_backup
+filetype:bak sql
+intitle:"index of" *.sql
+filetype:sql "CREATE TABLE"
+intitle:"index of" "fullbackup"
+inurl:sql.gz
+inurl:backup.zip
+filetype:sql "root" "password"
+inurl:dump filetype:sql
+inurl:export.sql
+intitle:"index of" "db.sql"
+filetype:sql site:.edu
+filetype:sql "users" "password"
+intitle:"index of" "backup" "sql"
+------------------------------------------ PASSWORDS / CREDS:
+intext:"password" filetype:txt
+intext:password ext:log
+intext:"password=" filetype:env
+filetype:xls "password"
+intext:"username" "password" filetype:txt
+inurl:password filetype:log
+intext:"DB_PASSWORD"
+intext:"user_pass"
+intitle:"index of" passwords
+intext:"password" filetype:csv
+filetype:xml "password"
+intext:"passwd" filetype:txt
+intext:"credential" filetype:txt
+inurl:creds.txt
+intext:"api_secret"
+intext:"access_key" filetype:txt
+intext:"secret" filetype:env
+intext:"BEGIN OPENSSH PRIVATE KEY"
+filetype:pub "private key"
+inurl:ftp "password"
+intext:"admin" "password" filetype:log
+------------------------------------------ DIRECTORIES:
+intitle:"index of" "parent directory"
+intitle:"index of" /admin
+intitle:"index of" /backup
+intitle:"index of" /config
+intitle:"index of" /db
+intitle:"index of" /logs
+intitle:"index of" /private
+intitle:"index of" /uploads
+intitle:"index of" /wp-content
+intitle:index.of inurl:/admin/*
+intitle:"index of" inurl:ftp
+intitle:"index of" inurl:temp
+intitle:"index of" ?C=D;O=A
+intitle:"index of" "Name" "Size" "Description"
+intitle:"index of" inurl:share
+intitle:"index of" inurl:files
+intitle:"index of" inurl:data
+intitle:"index of" inurl:conf
+intitle:"index of" inurl:secure
+intitle:"index of" inurl:download
+intitle:"Apache Directory Listing"
+------------------------------------------ RESTRICTED DOCS:
+site:.gov filetype:pdf "confidential"
+site:.mil inurl:admin
+inurl:.gov "password"
+filetype:xls site:.gov
+intitle:"index of" site:.gov
+site:.gov inurl:backup
+inurl:financial filetype:pdf
+inurl:banking "login"
+site:.gov "internal document"
+filetype:pdf "FOUO"
+inurl:restricted site:.gov
+intitle:"government" "confidential"
+site:.edu "admin panel"
+inurl:payroll filetype:xls
+inurl:invoice filetype:pdf
+------------------------------------------ LOGS / uINFO:
+intext:"SQL syntax" filetype:log
+intext:"Warning: mysql" 
+intext:"error" filetype:log
+inurl:error.log
+intext:"Exception" filetype:log
+intext:"stack trace" 
+intext:"username" filetype:log
+intext:"email" filetype:log
+intitle:"index of" "error"
+intext:"logged in as" 
+inurl:log.txt
+intext:"user ID" filetype:txt
+inurl:users.log
+intext:"failed login"
+intext:"access denied" log
+------------------------------------------ .ENV / CONFIG:
+inurl:.env
+filetype:env
+intitle:"index of" .env
+inurl:.env -inurl:.env.example
+inurl:.env intitle:"index of" 
+"DB_PASSWORD=" filetype:env
+"DB_HOST=" filetype:env
+"APP_KEY=" filetype:env
+"API_SECRET=" filetype:env
+"SECRET_KEY=" filetype:env
+"AWS_ACCESS_KEY_ID=" filetype:env
+"AWS_SECRET_ACCESS_KEY=" filetype:env
+inurl:.env "MAIL_PASSWORD"
+inurl:.env "REDIS_PASSWORD"
+inurl:.env "DATABASE_URL"
+inurl:.env "JWT_SECRET"
+inurl:/.env
+inurl:/config/.env
+inurl:/.env.backup
+inurl:.env.old
+inurl:.env.local
+inurl:.env.production
+inurl:.env.development
+intext:"APP_ENV=production" filetype:env
+intext:"DB_PASSWORD" inurl:.env
+intext:"password" filetype:env
+intitle:"index of" ".env"
+------------------------------------------ EXCEL FILES:
+filetype:xls "confidential"
+filetype:xlsx "confidential"
+filetype:xlsm "confidential"
+filetype:xls "password"
+filetype:xlsx "password"
+filetype:xlsm "password"
+filetype:xls "username" "password"
+intitle:"index of" filetype:xls
+intitle:"index of" filetype:xlsx
+intitle:"index of" filetype:xlsm
+"confidential" filetype:xls
+"strictly confidential" filetype:xlsx
+"internal use only" filetype:xls
+"budget" filetype:xls OR filetype:xlsx
+"payroll" filetype:xls OR filetype:xlsx
+"financial report" filetype:xls
+"client list" filetype:xlsx
+"sensitive" filetype:xls
+"password list" filetype:xls
+inurl:confidential filetype:xls
+inurl:private filetype:xlsx
+filetype:xls "company confidential"
+filetype:xlsx intext:"password"
+filetype:xlsm intext:"password"
+inurl:finance filetype:xls
+inurl:accounts filetype:xlsx
+intitle:"index of" "finance" filetype:xls
+"salary" filetype:xls OR filetype:xlsx
+"invoice" filetype:xls
+------------------------------------------ END OF LIST
