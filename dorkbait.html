@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torch</title>
+  <style>
+    body {
+      background-color: #f8f8f8;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 70px 0 40px;
+      text-align: center;
+    }
+
+    .logo {
+      margin-bottom: 35px;
+    }
+
+    .logo img {
+      width: 380px;
+      height: auto;
+    }
+
+    .search-container {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1.2rem;
+      border: 1px solid #666;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0 20px;
+    }
+
+    button {
+      padding: 8px 26px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #666;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .options {
+      margin: 15px 0 22px;
+      font-size: 1rem;
+    }
+
+    .options label {
+      margin: 0 12px;
+      cursor: pointer;
+    }
+
+    .stats {
+      margin: 25px 0;
+      font-size: 1.05rem;
+      color: #222;
+    }
+
+    .advertise {
+      color: #0066cc;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .small-buttons {
+      margin: 25px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .small-buttons a img {
+      border: 1px solid #aaa;
+    }
+    .dorks-section {
+      margin-top: 60px;
+      max-width: 850px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <img src="https://files.catbox.moe/jtghde.png" alt="Dorkbait" width="380">
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search the web !!" autofocus>
+
+    <div class="buttons">
+      <button onclick="searchGoogle()">Search on Google</button>
+      <button onclick="window.location.href='https://raw.githubusercontent.com/nicopancakes/meetniko.fyi/refs/heads/main/text.txt'">See Prebuilt</button>
+    </div>
+    <div class="stats">
+      made with 💖 by <strong>niko</strong> 
+<div>
+
+  <script>
+    function searchGoogle() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter') searchGoogle();
+    });
+  </script>
+
+</body>
+</html>
