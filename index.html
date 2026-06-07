@@ -1,189 +1,1969 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Boot</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100vh;
-        background: #000;
-        color: #c0c0c0;
-        font-family: 'VT323', monospace;
-        overflow: hidden;
-    }
-
-    .crt-container {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        padding: 80px 80px 40px 100px;
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    .dos-screen {
-        position: absolute;
-        top: 80px;
-        left: 100px;
-        width: 620px;
-        height: calc(100vh - 160px);
-        overflow: hidden;
-    }
-
-    .image-container {
-        position: absolute;
-        top: 60px;
-        right: 80px;
-        width: 220px;
-        height: 180px;
-        opacity: 0;
-        transition: opacity 0.6s ease-in;
-        z-index: 10;
-    }
-
-    .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        image-rendering: pixelated;
-    }
-
-    .line {
-        opacity: 0;
-        transition: opacity 0.8s ease-in;
-        margin-bottom: 6px;
-        font-size: 26px;
-        white-space: pre;
-    }
-
-    .line.visible {
-        opacity: 1;
-    }
-
-    .cursor {
-        display: inline-block;
-        width: 13px;
-        height: 26px;
-        background: #c0c0c0;
-        animation: blink 0.6s step-end infinite;
-        vertical-align: middle;
-    }
-
-    .start-screen {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        font-size: 32px;
-        cursor: pointer;
-        user-select: none;
-        z-index: 100;
-    }
-
-    .start-screen:hover {
-        color: #ffffff;
-    }
-
-    @keyframes blink {
-        50% { opacity: 0; }
-    }
-</style>
-</head>
-<body>
- 
-<div class="crt-container" id="crt">
-    <div class="start-screen" id="start-btn">
-        <br><br><br>
-        Unable to Start Personal Computer<br>
-        <span style="font-size:22px; opacity:0.7;">click here to start</span>
-    </div>
-    <div class="dos-screen" id="dos-screen"></div>
-    <div class="image-container" id="logo-container">
-        <img id="logo-img" src="" alt="">
-    </div>
-</div>
-<audio id="bootAudio">
-    <source src="https://files.catbox.moe/py2hdx.m4a" type="audio/mpeg">
-</audio>
-<script> 
-const bootLines = [
-"Microsoft Windows 95",
-"(C) Copyright Microsoft Corp 1981-2001",
-"Starting system...",
-"Loading /win98 ..... OK",
-"Loading /toolkat ..... OK",
-"Initializing hardware ..... OK",
-"Loading .css Files ..... OK",
-"Loading .js Files ..... OK",
-"Starting Windows...",
-"Welcome to meetniko.fyi",
-"C:\WINDOWS> _",
-    ""
-];
-const crt = document.getElementById('crt'); 
-const dosScreen = document.getElementById('dos-screen');
-const logoContainer = document.getElementById('logo-container');
-const logoImg = document.getElementById('logo-img');
-const audio = document.getElementById('bootAudio');
-
-let started = false;
-const logoURL = "https://files.catbox.moe/xjyvld.png";
-const modernTerminalURL = "terminal.html";
-
-function addLine(text) {
-    const div = document.createElement('div');
-    div.className = 'line';
-    div.textContent = text || " ";
-    dosScreen.appendChild(div);
+<html>
+  <head>
+    <meta charset="UTF-8">
     
-    setTimeout(() => div.classList.add('visible'), 50);
-}
+    <title>&star; Nova's Neon Abyss</title>
+    <link rel="shortcut icon" href="https://jugproductions.neocities.org/favicons/chudjug.gif" type="image/x-icon">
+    
+     <link rel="stylesheet" href="https://epiccity.nekoweb.org/ring//onionring - small.css">
+     <link rel="stylesheet" href="https://cdring.neocities.org/cdring/onionring.css">
+     <link rel="stylesheet" href="https://jugproductions.neocities.org/siwwidget.css">
+     <link rel="stylesheet" href="https://darkosparko.nekoweb.org/webrings/apartments-webring/apartment-webring-style.css">
+     <link rel="stylesheet" href="https://thegreenroom.neocities.org/webrings/tvtimewebring/onionring.css"/>
+     <!-- AUDIO PLAYER --> 
 
-function bootSequence() {
-    dosScreen.innerHTML = '';
-    let i = 0;
+<style>
+@font-face {
+font-family: 'basiic';
+ src: url('https://file.garden/Zztv0a9yEhr5pmEq/basiic.ttf') format("truetype");
+ }
+</style> 
 
-    const interval = setInterval(() => {
-        if (i < bootLines.length) {
-            addLine(bootLines[i]);
-            i++;
-        } else {
-            clearInterval(interval);
-            const cursorLine = document.createElement('div');
-            cursorLine.innerHTML = 'C:\\><span class="cursor"></span>';
-            dosScreen.appendChild(cursorLine);
+
+ <div id="musicplayer">
+        
+             <table class="controls">
+            <tr>
+                <td>
+                    <div class="prev-track" onclick="prevTrack()"><img class="ctrlimg" src='https://file.garden/Zztv0a9yEhr5pmEq/back.png'></div>
+                </td>
+                <td>
+                    <div class="playpause-track" onclick="playpauseTrack()" ><img class="ctrlimg" src='https://file.garden/Zztv0a9yEhr5pmEq/play.png'></div>
+                </td>
+                <td>
+                    <div class="next-track" onclick="nextTrack()"><img class="ctrlimg" src='https://file.garden/Zztv0a9yEhr5pmEq/next.png'></div>
+                </td>
+            </tr>
+        </table>
+        
+ <div>
+            <marquee scrollamount="8" class="songtitle"></marquee>
+        </div>
+        <div class="seeking">
+            <div class="current-time">00:00</div>
+ 
+            <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+ 
+            <div class="total-duration">0:00</div>
+        </div>
+ <div class="slider_container">
+ 
+      <i class="fa fa-volume-down"></i>
+      <input type="range" min="0" max="100"
+        value="100" class="volume_slider" onchange="setVolume()">
+      <i class="fa fa-volume-up"></i>
+    </div>
+    
+        <audio id="music" src=""></audio> 
+    </div>
+  <!-- player by adilene.net-->  
+    <script>
+        // initiate variables
+        let track_name = document.querySelector(".songtitle");
+ 
+        let playpause_btn = document.querySelector(".playpause-track");
+        let next_btn = document.querySelector(".next-track");
+        let prev_btn = document.querySelector(".prev-track");
+ 
+        let seek_slider = document.querySelector(".seek_slider");
+        let curr_time = document.querySelector(".current-time");
+        let total_duration = document.querySelector(".total-duration");
+ let volume_slider = document.querySelector(".volume_slider");
+        let track_index = 0;
+        let isPlaying = false;
+        let updateTimer;
+        
+        // create new audio element
+        let curr_track = document.getElementById("music");
+        
+        //
+        // DEFINE YOUR SONGS HERE!!!!!
+        // MORE THAN FOUR SONGS CAN BE ADDED!!
+        // JUST ADD ANOTHER BRACKET WITH NAME AND PATH
+        // CATBOX.MOE IS RECOMMENDED FOR UPLOADING MP3 FILES
+         let track_list = [
+          {
+            
+              name:"succumb - seven spires",
+                path:"https://jugproductions.neocities.org/mp3/Succumb.mp3"
+                
+                
+          },  
+            
+                
+                {name:"ultima hypocrita - mental cruelty",
+                path:"https://jugproductions.neocities.org/mp3/Ultima%20Hypocrita.mp3"
+                
+            
+            
+            },
+                {name:"melancholia - dark sarah",
+                path:"https://jugproductions.neocities.org/mp3/DARK%20SARAH%20-%20Melancholia%20(Official%20Lyric%20Video)%20Napalm%20Records.mp3"
+                
+            },
+            
+            {name:"the rise of sodom and gomorrah - therion",
+                path:"https://jugproductions.neocities.org/mp3/The%20Rise%20of%20Sodom%20and%20Gomorrah.mp3"
+            
+            },
+            
+            {name:"killing my dreams - elysion",
+                path:"https://jugproductions.neocities.org/mp3/Killing%20My%20Dreams.mp3"
+              
+            },
+            
+            {name:"another night (dj tora vocal mix) - morgana",
+                path:"https://jugproductions.neocities.org/mp3/Another%20Night%20(DJ%20Tora%20Vocal%20Mix)%20Morgana.mp3"
+              
+              
+            },
+            
+        ];
+        //
+        //
+        //
+        //
+        // the default volume of the song feel free to change
+          vid = document.getElementById("music");
+                              vid.volume = 0.1; 
+                              
+           function setVolume() {
+            // Set the volume according to the
+            // percentage of the volume slider set
+           
+            curr_track.volume = volume_slider.value / 100;
+          }
+          
+                              
+        function loadTrack(track_index) {
+            clearInterval(updateTimer);
+            resetValues();
+ 
+            // load a new track
+            curr_track.src = track_list[track_index].path;
+            curr_track.load();
+            
+            // update details of the track
+            track_name.textContent = "playing " + (track_index + 1) + " of " + track_list.length + ": " + track_list[track_index].name;
+ 
+            // set an interval of 1000 milliseconds for updating the seek slider
+            updateTimer = setInterval(seekUpdate, 1000);
+            
+            // move to the next track if the current one finishes playing 
+            curr_track.addEventListener("ended", nextTrack);
         }
-    }, 650);
-}
-
-function startBoot() {
-    if (started) return;
-    started = true;
-
-    document.getElementById('start-btn').style.display = 'none';
-
-    audio.play().catch(e => console.log("Audio playback failed:", e));
-
-    setTimeout(() => {
-        bootSequence();
-        if (logoURL) {
-            logoImg.src = logoURL;
-            logoContainer.style.opacity = '1';
+ 
+        // reset values
+        function resetValues() {
+            curr_time.textContent = "0:00";
+            total_duration.textContent = "0:00";
+            seek_slider.value = 0;
         }
-    }, 2525);
-    setTimeout(() => {
-        window.location.href = "https://meetniko.fyi/2";
-    }, 17000);
-}
-window.onload = () => {
-    document.getElementById('start-btn').addEventListener('click', startBoot);
-};
-</script>
+ 
+        // checks if song is playing
+        function playpauseTrack() {
+            if (!isPlaying) playTrack();
+            else pauseTrack();
+        }
+ 
+        // plays track when play button is pressed
+        function playTrack() {
+            curr_track.play();
+            isPlaying = true;
+            
+            // replace icon with the pause icon
+                playpause_btn.innerHTML = "<img class='ctrlimg'  src='https://file.garden/Zztv0a9yEhr5pmEq/pause.png'></img>";
+        }
+ 
+        // pauses track when pause button is pressed
+        function pauseTrack() {
+            curr_track.pause();
+            isPlaying = false;
+            
+            // replace icon with the play icon
+            playpause_btn.innerHTML = "<img class='ctrlimg'  src='https://file.garden/Zztv0a9yEhr5pmEq/play.png'></img>";
+        }
+ 
+ 
+        // moves to the next track
+        function nextTrack() {
+            if (track_index < track_list.length - 1)
+                track_index += 1;
+            else track_index = 0;
+            loadTrack(track_index);
+            playTrack();
+        }
+ 
+        // moves to the previous track
+        function prevTrack() {
+            if (track_index > 0)
+                track_index -= 1;
+            else track_index = track_list.length;
+            loadTrack(track_index);
+            playTrack();
+        }
+ 
+        // seeker slider
+        function seekTo() {
+            seekto = curr_track.duration * (seek_slider.value / 100);
+            curr_track.currentTime = seekto;
+        }
+ 
+        function seekUpdate() {
+            let seekPosition = 0;
+            
+            // check if the current track duration is a legible number
+            if (!isNaN(curr_track.duration)) {
+                seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+                seek_slider.value = seekPosition;
+                
+            // calculate the time left and the total duration
+            let currentMinutes = Math.floor(curr_track.currentTime / 60);
+            let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+            let durationMinutes = Math.floor(curr_track.duration / 60);
+            let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+                
+            // adding a zero to the single digit time values
+            if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+            if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+            if (currentMinutes < 10) { currentMinutes = currentMinutes; }
+            if (durationMinutes < 10) { durationMinutes = durationMinutes; }
+ 
+            curr_time.textContent = currentMinutes + ":" + currentSeconds;
+            total_duration.textContent = durationMinutes + ":" + durationSeconds;
+          }
+        }
+        
+        // load the first track in the tracklist
+        loadTrack(track_index);
+         </script>
+  </head>
+  <body>
 
-</body>
+
+
+
+
+
+
+<div id="container">
+
+<div id="bannerbox" style="margin-top: 165px;">
+<div id="banner"></div>
+<nav id="navbar" style="margin-bottom: 10px;">
+<ul>
+<li><a href="https://meetniko.fyi/diary"><img src="https://jugproductions.neocities.org/favicons/pencil.gif"/>Diary</a></li>
+</li>
+                    </ul>
+</nav>
+</div>
+
+<div id="firstsection">
+
+<div id="intro">
+<img src="https://jugproductions.neocities.org/stuff/rainbowcloudboxthing2.png" style="float:left;margin-left:-7px;" width=140 height=120 >
+
+<img src="https://jugproductions.neocities.org/stuff/rainbowcloudboxthing.png" style="float:right;" width=140 height=120 >
+<!--IDENTITY BUTTONS-->
+<div> 
+<center>
+<img src="https://jugproductions.neocities.org/peaceee.gif" alt="adhd"/>
+<img src="https://jugproductions.neocities.org/wonky.gif" alt="anxiety"/>
+<img src="https://jugproductions.neocities.org/divaa.webp" alt="diva"/>
+<img src="https://jugproductions.neocities.org/giddyyy.webp" alt="giddy"/>
+<img src="https://jugproductions.neocities.org/sweetnesss.gif" alt="sweetness"/>
+<img src="https://jugproductions.neocities.org/nuts.gif" alt="sweetness"/>
+
+</center>
+</div>
+<center>
+<br>
+<img src="https://jugproductions.neocities.org/stuff/welcum.png" alt="wELCOME" width="355" />
+
+
+<p>welcome to my little corner of the internet, im known as niko, you can address me as so if youd like :3. this is my very own little corner of the web where i can express my thoughts and myself. a little bit about me, i love mechanics, and radios. im a technology engingeering student (as of 2025), im a metalhead, i love deftones, motley crue, limp bizkit, nickleback, alice in chains, metallica, rob zombie, green day, and a ton more! enjoy ur stay! ~ <img src="https://jugproductions.neocities.org/peace.gif"></p>
+</center>
+</div>
+
+<div id="extra" style="margin-right: 2px;">
+<div class="guestbook">
+
+</div>
+<div class="jugbutton">
+<center>
+<br>
+<img src="https://i.pinimg.com/1200x/a8/b6/82/a8b68264ca660de5dee4fd21bd17d0e8.jpg" width= 105 style="margin-top:-5px;">
+<div>
+</div>
+</center>
+<img src="" width= 85 style="margin-top:-5px;">
+</div>
+</div> <!--extra end div-->
+
+</div> <!--first section end div-->
+
+<div id="blinkiesmarquee" style="margin-top: 12px;">
+<marquee behavior="alternate" scrollamount="8">
+<img src="https://jugproductions.neocities.org/gotlve.gif" alt="gotlove"/>
+<img src="https://jugproductions.neocities.org/jammies.gif" alt="jammies"/>
+<img src="https://jugproductions.neocities.org/lovealways.gif" alt="lovealways"/>
+<img src="https://jugproductions.neocities.org/millionaires.gif" alt="millionaires"/>
+<img src="https://jugproductions.neocities.org/sweett.gif" alt="sweet"/>
+<img src="https://jugproductions.neocities.org/yayy.webp" alt="putlove"/>
+<img src="https://jugproductions.neocities.org/wert67u8ol.webp" alt="madness"/>
+<img src="https://jugproductions.neocities.org/vixenn.gif" alt="vixen"/>
+<img src="https://jugproductions.neocities.org/masculinity.gif" alt="masculinity"/>
+<img src="https://jugproductions.neocities.org/poiujnk.webp" alt="pinkparadise"/>
+<img src="https://jugproductions.neocities.org/iheartcomputer.gif" alt="computar"/>
+<img src="https://jugproductions.neocities.org/boobie.gif" alt="boobie"/>
+<img src="https://jugproductions.neocities.org/monster.gif" alt="monster"/>
+<img src="https://jugproductions.neocities.org/stud.gif" alt="stud"/>
+<img src="https://jugproductions.neocities.org/deftones.gif" alt="deftones"/>
+<img src="https://jugproductions.neocities.org/glitterr.gif" alt="glitter"/>
+<img src="https://jugproductions.neocities.org/iygigi.gif" alt="leopard"/>
+<img src="https://jugproductions.neocities.org/sparkl.gif" alt="sparkl"/>
+<img src="https://jugproductions.neocities.org/hghgigiug%20-%20Copy.webp" alt="nyan"/>
+<img src="https://jugproductions.neocities.org/bnmbmbmbv.webp" alt="furby"/>
+<img src="https://jugproductions.neocities.org/blinkies/deftblinkie.webp" width= 150px height= 20px />
+<img src="https://jugproductions.neocities.org/blinkies/deftblinkie2.webp" width=150px height= 20px />
+<img src="https://jugproductions.neocities.org/blinkies/deftblinkie3.webp" width=150px height= 20px />
+<img src="https://jugproductions.neocities.org/blinkies/deftblinkie4.webp" />
+<img src="https://jugproductions.neocities.org/blinkies/arcticmonkeysblinkie.webp" />
+<img src="https://jugproductions.neocities.org/blinkies/ayeshablinkie.gif" />
+<img src="https://jugproductions.neocities.org/blinkies/fulloflove.gif" />
+<img src="" />
+<img src="" />
+</marquee>
+</div>
+
+<div id="secondsection" style="margin-top: 5px;">
+
+<div id="stuff" style="margin-right: 0px;">
+
+
+
+
+
+
+
+<div id="statusbox">
+
+<h1 style="text-align:right;margin-top:-0px;margin-bottom:7px;">meow</h1>
+
+
+
+<center>
+
+</center>
+
+</div><!--end of status box div-->
+
+<center>
+<img src="https://jugproductions.neocities.org/graphics/murderbar.png" width=97% height=97% />
+</center>
+</div><!--end of stuff div-->
+
+
+
+<div id="fun" style="margin-left: 7px;">
+<center>
+
+<!-- FC2 Clap tag starts here -->
+<!-- FC2 Clap tag ends here -->
+<img src="https://jugproductions.neocities.org/graphics/lavalamp.gif" width=105 />
+<script language="javascript" type="text/javascript" src="//counter1.fc2.com/counter.php?id=40504240&main=1"></script><noscript><img src="//counter1.fc2.com/counter_img.php?id=40504240&main=1" /></noscript>
+</center>
+</div> <!--fun end div-->
+<div id="cbox">
+<iframe src=" " width="330" height="280" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+<div id="chatbox">
+<center>
+
+
+</div>
+
+
+
+<div id="buttons">           
+        <a href="https://jugproductions.newgrounds.com/">
+<img src="https://jugproductions.neocities.org/buttons/ngbutton.png"/></a>
+
+
+<a href="https://www.instagram.com/jugproductions_/">
+<img src="https://jugproductions.neocities.org/buttons/instabutton.png"/></a>
+
+ <a href="https://x.com/jugproductionss">
+<img src="https://jugproductions.neocities.org/buttons/twtbutton.png"/></a>
+
+<a href="https://www.tiktok.com/@jugproductions?_t=ZT-8yGUNT0nUsJ&_r=1">
+<img src="https://jugproductions.neocities.org/buttons/ttbutton.png"/></a>
+
+<a href="https://www.tumblr.com/blog/jugproductions">
+<img src="https://jugproductions.neocities.org/buttons/tumblrbutton.png"/></a>
+
+<a href="https://toyhou.se/jugproductions">
+<img src="https://jugproductions.neocities.org/buttons/toyhouse.webp"/></a>
+
+</div>
+
+</div>
+
+</div> <!--second section end div-->
+
+<div id="stampmarquee" style="margin-top: 8px;">
+<marquee behavior="alternate" scrollamount="8">
+<img src="https://jugproductions.neocities.org/rnowws.webp" />
+<img src="https://jugproductions.neocities.org/ythb.webp" />
+<img src="https://jugproductions.neocities.org/special.png" />
+<img src="https://jugproductions.neocities.org/wo.webp" />
+<img src="https://jugproductions.neocities.org/yesss.webp" />
+<img src="https://jugproductions.neocities.org/epikk.webp" />
+<img src="https://jugproductions.neocities.org/art.webp" />
+<img src="https://jugproductions.neocities.org/hk.webp" />
+<img src="https://jugproductions.neocities.org/graphics/purple.png" />
+<img src="https://jugproductions.neocities.org/graphics/fuckstamp.png" />
+<img src="https://jugproductions.neocities.org/graphics/flarpstampp.gif" />
+<img src="https://jugproductions.neocities.org/graphics/tarryystamp.gif" />
+<img src="https://jugproductions.neocities.org/graphics/cringerfallstamp.gif" />
+<img src="https://jugproductions.neocities.org/graphics/tokittyy.gif" />
+<img src="https://jugproductions.neocities.org/asdfWOAOAAAHHH.webp" />
+<img src="https://jugproductions.neocities.org/fncgfn.webp" />
+<img src="https://jugproductions.neocities.org/rainbowmetro.png" />
+<img src="https://jugproductions.neocities.org/pinkmetrostamp.png" />
+<img src="https://jugproductions.neocities.org/pinkstampmetro.png" />
+<img src="https://jugproductions.neocities.org/htbhgh.png"  />
+<img src="https://jugproductions.neocities.org/ily.png" />
+<img src="https://jugproductions.neocities.org/ngngngn.png" />
+<img src="https://jugproductions.neocities.org/hell.jpg" />
+<img src="https://jugproductions.neocities.org/ads,m%20mdfmdfs.png" />
+<img src="https://jugproductions.neocities.org/graphics/tumblr-pehxctmw-JS1wkyk4io9-100.png"  />
+<img src="https://jugproductions.neocities.org/rrggr.png" />
+<img src="https://jugproductions.neocities.org/graphics/awesum%20stamp.png" />
+<img src="https://jugproductions.neocities.org/rthytr6hr.jpg" />
+<img src="https://jugproductions.neocities.org/checker.gif" />
+<img src="https://jugproductions.neocities.org/graphics/sillystamp%20-%20Copy.png" />
+<img src="https://jugproductions.neocities.org/graphics/lisafrankstamp2%20-%20Copy.png" />
+<img src="https://jugproductions.neocities.org/graphics/privatemusicstamp.png" />
+<img src="https://jugproductions.neocities.org/graphics/big%20juicy%20stamp.png" />
+<img src="https://jugproductions.neocities.org/graphics/ohdearaahh.png" />
+<img src="https://jugproductions.neocities.org/graphics/lisafrankstamp3.png" />
+<img src="https://jugproductions.neocities.org/graphics/lisafrankstamp1.png" />
+<img src="https://jugproductions.neocities.org/graphics/CRINGERSTAMP.gif"/>
+<img src="https://jugproductions.neocities.org/graphics/am%20stamp.png"/>
+<img src="" />
+<img src="" />
+<img src="" />
+
+</marquee>
+</div>
+
+<div id="thirdsection" style="margin-top: 5px;">
+
+<div id="box1" style="margin-right: 0px;">
+
+<center>
+<div id="art" style="margin-top: 3px;" >
+<a target="_blank" href="https://i.pinimg.com/1200x/aa/e1/ad/aae1ad539c04b76c4b237edd50f668ee.jpg">
+<img src="https://i.pinimg.com/1200x/aa/e1/ad/aae1ad539c04b76c4b237edd50f668ee.jpg" width=100% ></a>
+</div>
+<h1>top rated femboy <a target="_blank" href="https://discord.gg/femboiss">discord server ever</a>(not mine)</h1>
+</center>
+
+
+</div>
+<div id="box2" style="margin-left: 7px;">
+<div id="boxheader">cool sites<img src="https://jugproductions.neocities.org/favicons/righttrainbow.gif" width=15px /></div>
+
+<div id="sites">
+<div id= "buttons">     	
+               <center>     
+        <a target="_blank" href="https://meetniko.fyi/">
+<img src="https://files.catbox.moe/aw4znt.gif" alt="ray"/></a>
+
+        <a target="_blank" href="https://luahtml.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/luabutton.gif" alt="lua"/></a>
+
+<a target="_blank" href="https://gammaguy.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/gammabutton.gif" alt="gamma"/></a>
+
+<a target="_blank" href="https://heverlad.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/heverbutton.gif" alt="hever"/></a>
+
+<a target="_blank" href="https://malto.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/maltobuttonn.png" alt="malto" height=31 width= 88 /></a>
+
+<a target="_blank" href="https://riffraider420.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/diablobutton.gif" alt="diablo"/></a>
+
+<a target="_blank" href="https://turtleoatz.neocities.org">
+<img src="https://jugproductions.neocities.org/buttons/lookyloo2.gif" height=31 width= 88/></a>
+    
+<a target="_blank" href="https://animusicsex.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/raybutton.gif" alt="ray"/></a>
+
+<a target="_blank" href="https://stonervampire.neocities.org/">
+<img src="https://jugproductions.neocities.org/buttons/stonervampirebutton.gif"/></a>
+
+<a target="_blank" href="https://mongleville.github.io/">
+<img src="https://jugproductions.neocities.org/buttons/MONGLEVILLE%20BUTTON.png" alt="mongle"/></a>
+
+<a target="_blank" href="https://glitchwolf471.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/glitchwolf47.gif" width=88 height=31  /></a>
+
+  <a target="_blank" href="https://bugkisser.neocities.org/">
+  <img src="https://bugkisser.neocities.org/buttons/bugkisser!.png"></a>
+  
+  <a target="_blank" href="https://sewerwolfx.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/sewerwolf.gif"></a>
+  
+  <a target="_blank" href="https://bloodgulch.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/bloodgulch.png"></a>
+  
+  <a target="_blank" href="https://haunt-culture.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/hauntculturebutton.png"  /></a>
+  
+  <a target="_blank" href="https://sclptures.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/sclptures.png"></a>
+  
+  <a target="_blank" href="https://maripocalypse.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/maripocalypse.png" height=31 width= 88 ></a>
+  
+  <a target="_blank" href="https://valkyrias-hideout-art.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/Valery-88by31-button.gif" height=31 width= 88 ></a>
+  
+  <a target="_blank" href="https://loveweb.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/loveweb-button.gif"></a>
+  
+  <a target="_blank" href="https://furple.art/">
+  <img src="https://jugproductions.neocities.org/buttons/fufle88x31.png"></a>
+  
+  
+  
+  <a target="_blank" href="https://scientificaljudge.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/sciencejudge.gif" height=31 width= 88></a>
+  
+  
+  <a target="_blank" href="https://glamourgoblin.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/glamourgoblin.gif" /></a>
+
+<a target="_blank" href="https://tubbywubbyponywaifu.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/ponywaifu.png" /></a>
+  
+  <a target="_blank" href="https://mimikitty49.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/mimikitty.gif" /></a>
+  
+  <a target="_blank" href="https://chesca.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/chescabutton.gif" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://wearefarmersdu.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/loofascorner.png" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://mountaintown.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/mountaintownbutton.gif" /></a>
+  
+  <a target="_blank" href="https://juglone.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/juglone.gif" /></a>
+  
+  <a target="_blank" href="https://pipisdrawings.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/k7hujw.png" /></a>
+  
+  <a target="_blank" href="https://bachira.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/bachira.png" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://dorozero.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/dorozero.png"  /></a>
+  
+  <a target="_blank" href="https://shittymeat999.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/shittymeat999%20button.gif" width=88 height=31  /></a>
+  
+  <a target="_blank" href="https://neapolitanpaws.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/neopolitanpawsbutton.gif"  /></a>
+  
+   <a target="_blank" href="https://lexeline.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/lexeline.gif"  /></a>
+  
+  <a target="_blank" href="https://ruralrose.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/ruralrose.gif" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://nilten.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/nilten.gif"  /></a>
+  
+  
+  
+  
+  <a target="_blank" href="https://roboticoperatingbuddy.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/roboticobutton.jpg"  /></a>
+  
+  <a target="_blank" href="https://willascool.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/sapbutton.png"  /></a>
+  
+  <a target="_blank" href="https://00s.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/00sbutton.gif"  /></a>
+
+  <a target="_blank" href="https://melody-nomas.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/melodynomasbutton.png"  /></a>
+  
+  <a target="_blank" href="https://aidia.pink/">
+  <img src="https://jugproductions.neocities.org/buttons/aidiabutton.gif" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://maggyoutthere.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/maggyoutthere.gif"  /></a>
+  
+  <a target="_blank" href="https://colorworld.world/">
+  <img src="https://jugproductions.neocities.org/buttons/colorworld.gif" height=31 width= 88 /></a>
+  
+  <a target="_blank" href="https://foggybear42.net/">
+  <img src="https://jugproductions.neocities.org/buttons/foggybear42.gif"  /></a>
+  
+  <a target="_blank" href="https://kanandraw.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/kananbutton.gif"  /></a>
+  
+  
+  <a target="_blank" href="https://bulltown.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/bulltown.png"/></a>
+  
+  <a target="_blank" href="https://vanillamilkshake.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/vanilamilkshake.png"/></a>
+  
+  <a target="_blank" href="https://pimiento.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/pimiento.gif" height=31 width= 88/></a>
+  
+  <a target="_blank" href="https://ridvenge.com/">
+  <img src="https://jugproductions.neocities.org/buttons/ridvenge.gif"></a>
+  <a target="_blank" href="https://riots-archive.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/riotbutton.png"></a>
+  <a target="_blank" href="https://angeldolly.com/">
+  <img src="https://jugproductions.neocities.org/buttons/image0.gif"></a>
+  <a target="_blank" href="https://kkb.ooo/">
+  <img src="https://jugproductions.neocities.org/buttons/kkbutton.gif"></a>
+  <a target="_blank" href="https://esoterical.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/ESOTERICALANGEL.gif"></a>
+  <a target="_blank" href="https://knoxstation.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/knoxstation.gif"></a>
+  <a target="_blank" href="https://r41n834u.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/r41n834u.gif"></a>
+  <a target="_blank" href="https://eggmothsoup.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/eggmoth.png"></a>
+  <a target="_blank" href="https://chimerathing.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/chimerathing.png"></a>
+  <a target="_blank" href="https://itai-yo.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/itai-yo.gif" width=88 height=31 ></a>
+  <a target="_blank" href="https://cowgf.party/">
+  <img src="https://jugproductions.neocities.org/buttons/cowgf.png" width=88 height=31></a>
+  <a target="_blank" href="https://wyrppad.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/wyrppad.gif" width=88 height=31></a>
+  <a target="_blank" href="https://meadowie.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/meadowie.png" width=88 height=31></a>
+  <a target="_blank" href="https://lazer-bunny.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/lazerbunny.gif" width=88 height=31></a>
+  <a target="_blank" href="https://ventablack.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/ventablack.gif" width=88 height=31></a>
+  <a target="_blank" href="https://anlucas.neocities.org/">
+ <img src="https://jugproductions.neocities.org/buttons/anlucas.gif" /></a>
+ <a target="_blank" href="https://lilyblossom.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/lfg.gif"/></a>
+  
+  <a target="_blank" href="https://slushiecafe.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/slushiecafebutton.gif" /></a>
+  <a target="_blank" href="https://justpeachy26.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/justpeachy26.png"  /></a>
+  <a target="_blank" href="https://jamverse.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/jamverse.gif" width=88 height=31  /></a>
+  
+  <a target="_blank" href="https://azuretom.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/azuretom.gif" width=88 height=31  /></a>
+  <a target="_blank" href="https://roguepebble.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/ROGUEPEBBLE-BUTTON.GIF" width=88 height=31  /></a>
+  <a target="_blank" href="https://samsolarsystem.neocities.org/">
+  <img src="https://jugproductions.neocities.org/buttons/Web%20button%20Sam%20solar%20system.gif" width=88 height=31  /></a>
+  
+  
+  <img src="https://jugproductions.neocities.org/chuddilyduds.gif" >
+</center>
+  
+           	</div>
+</div>
+
+
+</div>
+<div id="box3" style="margin-right: 0px;">
+<div id="boxheader">Web Things<img src="https://jugproductions.neocities.org/favicons/righttrainbow.gif" width=15px /></div>
+
+          <div id="webrings">
+
+<center>
+
+<h1 style="margin-top: -1px;"><img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px /> Webrings <img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px /></h1>
+
+
+<div id="aero-ring">
+<script src="https://frutigeraeroarchive.org/javascript/aero-webring.js"></script>
+</div>
+<br>
+
+<div class="gradientring">
+<a href="https://gradientring.nekoweb.org/s/jug/prev"><img src="https://jugproductions.neocities.org/favicons/lefttrainbow.gif" width=15 style="margin-top: 5px;"></a> <a href="https://gradientring.nekoweb.org/">gradientring</a> <a href="https://gradientring.nekoweb.org/s/jug/next"><img src="https://jugproductions.neocities.org/favicons/righttrainbow.gif" width=15></a>
+</div>
+
+<div id= "lpsring">
+<img src="https://jugproductions.neocities.org/panda899.png" id="pet" height="75px"><script data-widget="text" src="https://tohellwithit.nekoweb.org/lpsring/webstring.js"></script>
+</div>
+
+<div id='80081358'>
+<script type="text/javascript" src="https://neptunex3.neocities.org/onionring-variables.js"></script>
+<script type="text/javascript" src="https://neptunex3.neocities.org/onionring-widget.js"></script>
+</div>
+
+<div id='metallic-webring'>
+<script type="text/javascript" src="https://ed3en.neocities.org/onionring-variablesweb.js"></script>
+<script type="text/javascript" src="https://ed3en.neocities.org/onionring-widgetweb.js"></script>
+</div>
+
+
+<div id='siwebring'>
+  	<script src="https://jugproductions.neocities.org/siwebringuservars.js"></script>
+  	<script src="https://dears.nekoweb.org/siwebring/onionring-variables.js"></script>
+<script src="https://dears.nekoweb.org/siwebring/onionring-widget.js"></script>
+</div>
+
+<div id='glassbeach'>
+<script type="text/javascript" src="https://jugproductions.neocities.org/onionring-variables.js"></script>
+<script type="text/javascript" src="https://jugproductions.neocities.org/onionring-widget.js"></script>
+</div>
+ 
+ 
+  
+<!-- CDRING START -->
+<div id='cdr'>
+<script type="text/javascript" src="https://cdring.neocities.org/cdring/onionring-variables.js"></script>
+<script type="text/javascript" src="https://cdring.neocities.org/cdring/onionring-widget.js"></script>
+    </div>
+<!-- CDRING END --> 
+
+
+<!-- GRAFFRING START -->
+<link rel="stylesheet" href="https://willascool.neocities.org/graffring/onionring.css">
+
+<div id="graffring-webring">
+
+<script src="https://willascool.neocities.org/graffring/onionring-variables.js"></script>
+<script src="https://willascool.neocities.org/graffring/onionring-widget.js"></script>
+</div>
+<!-- GRAFFRING END -->
+ 
+  <div id='deftring'>
+<script type="text/javascript" src="https://jugproductions.neocities.org/deftring/deftring-variables.js"></script>
+<script type="text/javascript" src="https://jugproductions.neocities.org/deftring/deftring-widget.js"></script>
+</div>  
+
+<script src="https://notmossyiguana.github.io/tyler-webring/ring.js"></script>
+<br>
+
+
+<script data-widget="images" src="https://rock-webring.neocities.org/webstring.js"></script> 
+
+	
+	
+	<table><tr><td><a href="https://lopster.neocities.org/roring/lolzers/prev.html?id=201"> <img src="https://lopster.neocities.org/roring/fotos/blox%20arrow%20left.png" height="30"></a></td><td><a href="https://lopster.neocities.org/roring/roring.html"><img src="https://lopster.neocities.org/roring/fotos/cat%20blox.png" width="70"></a></td><td><a href="https://lopster.neocities.org/roring/lolzers/next.html?id=201"><img src="https://lopster.neocities.org/roring/fotos/blox%20arrow%20right.png" height="30"></a></td></tr></table> 
+
+
+<div id='NYAN_'>
+<script type="text/javascript" src="https://epiccity.nekoweb.org/ring/onionring-variables.js"></script>
+<script type="text/javascript" src="https://epiccity.nekoweb.org/ring/onionring-widget - small.js"></script>
+</div>
+
+
+<div id="the-last-cult">
+<script type="text/javascript" src="https://sakuraducky.neocities.org/thelastcult-variables.js"></script>
+<script type="text/javascript" src="https://sakuraducky.neocities.org/thelastcult-widget.js"></script>
+</div>
+
+<div id='epicring'>
+<script type="text/javascript" src="https://epic1.nekoweb.org/epicring/onionring-variables.js"></script>
+<script type="text/javascript" src="https://epic1.nekoweb.org/epicring/epicring-widget.js"></script>
+</div> 
+       
+<br>
+
+<div>
+ <map name="win7widget-compact">
+<area href="https://baccyflap.com/noai" target="_blank" shape="rect" coords="0,0,216,29" alt="no ai webring" title="no ai webring">
+<area href="https://baccyflap.com/noai/?prv&s=guj" target="_top" shape="rect" coords="102,45,199,71" alt="previous" title="previous">
+<area href="https://baccyflap.com/noai/?rnd" target="_top" shape="rect" coords="102,81,199,105" alt="random" title="random">
+<area href="https://baccyflap.com/noai/?nxt&s=guj" target="_top" shape="rect" coords="102,116,199,141" alt="next" title="next">
+</map>
+<img usemap="#win7widget-compact" src="https://baccyflap.com/noai/win7widget-compact.gif" alt="a Windows 7 style dialog box titled 'The No AI Webring' with a little icon showing a computer chip in a rubbish bin. beside it are three clickable buttons, labeled Previous, Random and Next">
+</div>
+
+<div id="tvtimering">
+<script
+type="text/javascript"
+src="https://thegreenroom.neocities.org/webrings/tvtimewebring/onionring-variables.js"
+></script>
+<script
+type="text/javascript"
+src="https://thegreenroom.neocities.org/webrings/tvtimewebring/onionring-widget.js"
+></script>
+</div>
+
+<h1><img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px />Cliques<img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px /></h1>
+
+<a href="https://sweetcharm.net/.CuteDesktop/Website/RPGClub/index.html">
+<img src="https://jugproductions.neocities.org/rpgjug.gif"/></a>
+<a href= "https://clownfred.zone/furbyadoption">
+<img src="https://jugproductions.neocities.org/lisafrankfurby.png" alt="furby" width= 60 title="furby base by clownfred edited by jug" /></a>
+<br>
+<a href="https://keysklubhouse.com/pixelcliques/teenytowers">
+<img src="https://jugproductions.neocities.org/jugroom.gif"/></a>
+<br>
+<a href="https://angel.valentinely.cc/">
+<img src="https://jugproductions.neocities.org/pixels/tiny-999.png" width= 70 /></a>
+<br>
+<a href="https://jugproductions.neocities.org/beanie-boo-club">
+<img src="https://jugproductions.neocities.org/boos/trixiecat.png"></a>
+<a href="https://jugproductions.neocities.org/beanie-boo-club">
+<img src="https://jugproductions.neocities.org/boos/pelliecat.png"></a>
+<a href="https://jugproductions.neocities.org/beanie-boo-club">
+<img src="https://jugproductions.neocities.org/boos/cherrydog.png"></a>
+
+
+
+<div id="buttonmarquee" style="margin-top: 5px;">
+<marquee behavior="alternate" scrollamount="6">
+<img src="https://jugproductions.neocities.org/buttons/neocities-pink.gif" />            
+<img src="https://jugproductions.neocities.org/buttons/pn.gif" />    
+<img src="https://jugproductions.neocities.org/buttons/hello_kitty.gif" />
+<img src="https://jugproductions.neocities.org/buttons/playgirl.webp" />
+<img src="https://jugproductions.neocities.org/buttons/kiss-or-gossip.gif" />
+<img src="https://jugproductions.neocities.org/buttons/welcomebutton.webp" height=31 width= 88 />
+<img src="https://jugproductions.neocities.org/buttons/newgroundssss.gif" />
+<img src="https://jugproductions.neocities.org/buttons/mspain4ever.jpg" />
+<img src="https://jugproductions.neocities.org/buttons/manon-button.gif" />
+<img src="https://jugproductions.neocities.org/buttons/e23.gif" />
+<img src="https://jugproductions.neocities.org/buttons/censor_14c.gif" />
+<img src="https://jugproductions.neocities.org/buttons/deft_now.gif" />
+<img src="https://jugproductions.neocities.org/buttons/ambutton.png" />
+<img src="https://jugproductions.neocities.org/buttons/texasbutton.png" />
+<img src="https://jugproductions.neocities.org/buttons/gifypetbadge.gif" />
+<img src="https://jugproductions.neocities.org/buttons/ralseismokingadart.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a33.gif" />
+<img src="https://jugproductions.neocities.org/buttons/caramelldansen.gif" />
+<img src="https://jugproductions.neocities.org/buttons/shrek2.png" />
+<img src="https://jugproductions.neocities.org/buttons/deathpoz.gif" />
+<img src="https://jugproductions.neocities.org/buttons/buriedalive.png" />
+<img src="https://jugproductions.neocities.org/buttons/satan.gif" />
+<img src="https://jugproductions.neocities.org/buttons/buttonfirealpaca.png" />
+<img src="https://jugproductions.neocities.org/buttons/by_cyber-rot_on_neocities.png" />
+<img src="https://jugproductions.neocities.org/buttons/spamtonbutton.png" height=31 width= 88 />
+<img src="https://jugproductions.neocities.org/buttons/queenbutton.gif" />
+<img src="https://jugproductions.neocities.org/buttons/piracy.png" />
+<img src="https://jugproductions.neocities.org/buttons/glamourgoblin-button2.gif" />
+<img src="https://jugproductions.neocities.org/buttons/b4.gif" />
+<img src="https://jugproductions.neocities.org/buttons/BFF.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a101.jpg" />
+<img src="https://jugproductions.neocities.org/buttons/buttonaban.gif" />
+<img src="https://jugproductions.neocities.org/buttons/discord_now.gif" />
+<img src="https://jugproductions.neocities.org/buttons/got_html.gif" />
+<img src="https://jugproductions.neocities.org/buttons/korncom1.png" />
+<img src="https://jugproductions.neocities.org/buttons/papyrus.png" />
+<img src="https://jugproductions.neocities.org/buttons/h3.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a18.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a51.png" />
+<img src="https://jugproductions.neocities.org/buttons/e16.jpg" />
+<img src="https://jugproductions.neocities.org/buttons/dreamhtml.webp" />
+<img src="https://jugproductions.neocities.org/buttons/jojo%20micro%20bar.png" />
+<img src="https://jugproductions.neocities.org/buttons/lol.gif" />
+<img src="https://jugproductions.neocities.org/buttons/minecraft.jpg" />
+<img src="https://jugproductions.neocities.org/buttons/brat.jpg" />
+<img src="https://jugproductions.neocities.org/buttons/webkinz.png" />
+<img src="https://jugproductions.neocities.org/buttons/y2k.gif" />
+<img src="https://jugproductions.neocities.org/buttons/f6.gif" />
+<img src="https://jugproductions.neocities.org/buttons/desp-anim.gif" />
+<img src="https://jugproductions.neocities.org/buttons/c7.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a99.png" />
+<img src="https://jugproductions.neocities.org/buttons/a1.gif" />
+<img src="https://jugproductions.neocities.org/buttons/a50.png" />
+<img src="https://jugproductions.neocities.org/buttons/a56.png" />
+<img src="" />
+<img src="" />
+<img src="" />
+<img src="" />
+<img src="" />
+</marquee>   
+</div>
+
+<h1><img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px />Fanlistings<img src="https://jugproductions.neocities.org/stuff/528.gif" width=18px /></h1>
+<a href="https://fan.drinkingsouls.com/fm">
+                  <img src="https://jugproductions.neocities.org/fanlist/fleetwoodmac.jpg" /></a>
+                  <a href="http://linkinpark.dead-ish.net/">
+                  <img src="https://jugproductions.neocities.org/fanlist/linkinpark.jpg" /></a>
+                  <a href="https://thevideodredd.neocities.org/fanlistings/oingoboingo">
+                  <img src="https://jugproductions.neocities.org/fanlist/oingoboingo.png" /></a>
+                  <a href="https://aidia.pink/Beastars/">
+                  <img src="https://jugproductions.neocities.org/fanlist/Haru50.png" width=50 /></a>
+                  <a href="https://fan-a-tic.ca/hybridtheory">
+                  <img src="https://jugproductions.neocities.org/fanlist/hybridtheory.jpg" /></a>
+                  <a href="http://breakingbad.stagekiss.net">
+                  <img src="https://jugproductions.neocities.org/fanlist/BrBa.jpg" /></a>
+                  <a href="https://fans.thislove.nu/carebears">
+                  <img src="https://jugproductions.neocities.org/fanlist/carebear.png" /></a>
+                  <a href="https://rose-magnifique.net/funshine/index.php">
+                  <img src="https://jugproductions.neocities.org/fanlist/funshine.png" /></a>
+                  <a href="https://fans.thislove.nu/cheerbear">
+                  <img src="https://jugproductions.neocities.org/fanlist/cheer.gif" /></a>
+                  <a href="http://hellokitty.ravenbeauty.net">
+                  <img src="https://jugproductions.neocities.org/fanlist/hktheater50x50_4.gif" /></a>
+                  <a href="https://fan.enamour.nu/pg/">
+                  <img src="https://jugproductions.neocities.org/fanlist/ppg.png" /></a>
+                  <a href="https://fan.kirai.org/htf/">
+                  <img src="https://jugproductions.neocities.org/fanlist/htf.png" /></a>
+                  <a href="https://fan.kirai.org/kenny/">
+                  <img src="https://jugproductions.neocities.org/fanlist/kenny.png" /></a>
+                  <a href="https://rouge.kirai.org">
+                  <img src="https://jugproductions.neocities.org/fanlist/rouge.png" /></a>
+                  <a href="https://yaten.net/elderscrolls/">
+                  <img src="https://jugproductions.neocities.org/fanlist/elderscrolls.png" /></a>
+                  <a href="https://fan.wings.nu/bordercollies/index.php">
+                  <img src="https://jugproductions.neocities.org/fanlist/border.png" /></a>
+                  <a href="https://decembergirl.net/samoyed/index.php">
+                  <img src="https://jugproductions.neocities.org/fanlist/samoyed.png" /></a>
+                  <a href="http://i-heart.net/lollipopchainsaw">
+                  <img src="https://jugproductions.neocities.org/fanlist/lc2.png" /></a>
+                  <a href="https://fan.glast-heim.net/undertale//index.php">
+                  <img src="https://jugproductions.neocities.org/fanlist/undertalee.png" /></a>
+                  <a href="http://fan.greenhype.net/fakenails/">
+                  <img src="https://jugproductions.neocities.org/fanlist/nails.png" /></a>
+                  <a href="http://fan.greenhype.net/mp3players/">
+                  <img src="https://jugproductions.neocities.org/fanlist/mp3players50a.gif" /></a>
+                  <a href="http://fan.greenhype.net/stereos/">
+                  <img src="https://jugproductions.neocities.org/fanlist/stereo.gif" /></a>
+                  <a href="https://glitterskies.org/glitter/">
+                  <img src="https://jugproductions.neocities.org/fanlist/glitterrrrr.gif" /></a>
+                  <a href="https://fightingspirit.dual-weekend.com/index.php">
+                  <img src="https://jugproductions.neocities.org/fanlist/jojofan.png" /></a>
+                  <a href="https://fan.crtstatic.net/xbox/">
+                  <img src="https://jugproductions.neocities.org/fanlist/xbox50x50.png" /></a>
+                  <a href="https://naiad.nu/pandas/">
+                  <img src="https://jugproductions.neocities.org/fanlist/giantpanda50505.png" /></a>
+                  <a href="https://fan.crtstatic.net/idog/">
+                  <img src="https://jugproductions.neocities.org/fanlist/idog50x50.png" /></a>
+                  <a href="">
+                  <img src="" /></a>
+                  <a href="">
+                  <img src="" /></a>
+       
+</center>
+
+
+</div>
+
+</div>
+
+</div> <!--third section end div-->
+
+<div id="badgemarquee" style="margin-top: 13px;">
+<marquee behavior="alternate" scrollamount="8" direction="right">
+<img src="https://jugproductions.neocities.org/badges/100bitch.gif" />
+<img src="https://jugproductions.neocities.org/badges/100sarcastic.gif" />
+<img src="https://jugproductions.neocities.org/badges/8015_familyguy.png" />
+<img src="https://jugproductions.neocities.org/badges/americanAAAAA.gif" />
+<img src="https://jugproductions.neocities.org/badges/aquarius2.gif" />
+<img src="https://jugproductions.neocities.org/badges/asexual.png" />
+<img src="https://jugproductions.neocities.org/badges/atheist.gif" />
+<img src="https://jugproductions.neocities.org/badges/avril.gif" />
+<img src="https://jugproductions.neocities.org/badges/banana.png" />
+<img src="https://jugproductions.neocities.org/badges/beagle.gif" />
+<img src="https://jugproductions.neocities.org/badges/boondocksbutton.gif" />
+<img src="https://jugproductions.neocities.org/badges/booty.gif" />
+<img src="https://jugproductions.neocities.org/badges/booty_call.gif" />
+<img src="https://jugproductions.neocities.org/badges/bp.gif" />
+<img src="https://jugproductions.neocities.org/badges/burnit.gif" />
+<img src="https://jugproductions.neocities.org/badges/codepink.gif" />
+<img src="https://jugproductions.neocities.org/badges/cow.gif" />
+<img src="https://jugproductions.neocities.org/badges/cssvalid.gif" />
+<img src="https://jugproductions.neocities.org/badges/deviantart(2).gif" />
+<img src="https://jugproductions.neocities.org/badges/die._please._b.png" />
+<img src="https://jugproductions.neocities.org/badges/domo_copy1.gif" />
+<img src="https://jugproductions.neocities.org/badges/drp.gif" />
+<img src="https://jugproductions.neocities.org/badges/email(2).gif" />
+<img src="https://jugproductions.neocities.org/badges/emolad.png" />
+<img src="https://jugproductions.neocities.org/badges/familyguy.gif" />
+<img src="https://jugproductions.neocities.org/badges/feminism.gif" />
+<img src="https://jugproductions.neocities.org/badges/firefox_copy1.png" />
+<img src="https://jugproductions.neocities.org/badges/flashplayer1.gif" />
+<img src="https://jugproductions.neocities.org/badges/genitals.gif" />
+<img src="https://jugproductions.neocities.org/badges/girlgerms.gif" />
+<img src="https://jugproductions.neocities.org/badges/glitter.gif" />
+<img src="https://jugproductions.neocities.org/badges/gotcow.gif" />
+<img src="https://jugproductions.neocities.org/badges/hellokittybadge.gif" />
+<img src="https://jugproductions.neocities.org/badges/hottopic_copy1.gif" />
+<img src="https://jugproductions.neocities.org/badges/imood.gif" />
+<img src="https://jugproductions.neocities.org/badges/incufan.png" />
+<img src="https://jugproductions.neocities.org/badges/kissmybooty.gif" />
+<img src="https://jugproductions.neocities.org/badges/kissmykitty.gif" />
+<img src="https://jugproductions.neocities.org/badges/lickable.gif" />
+<img src="https://jugproductions.neocities.org/badges/lm4m.gif" />
+<img src="https://jugproductions.neocities.org/badges/loveani.gif" />
+<img src="https://jugproductions.neocities.org/badges/loveislove.gif" />
+<img src="https://jugproductions.neocities.org/badges/mp3love.gif" />
+<img src="https://jugproductions.neocities.org/badges/Msn2-80x15.gif" />
+<img src="https://jugproductions.neocities.org/badges/nice.gif" />
+<img src="https://jugproductions.neocities.org/badges/nin.png" />
+<img src="https://jugproductions.neocities.org/badges/pride2.gif" />
+<img src="https://jugproductions.neocities.org/badges/punkfairy.gif" />
+<img src="https://jugproductions.neocities.org/badges/redbg.gif" />
+<img src="https://jugproductions.neocities.org/badges/rh.gif" />
+<img src="https://jugproductions.neocities.org/badges/rubored.png" />
+<img src="https://jugproductions.neocities.org/badges/slap.gif" />
+<img src="https://jugproductions.neocities.org/badges/somethingawful.gif" />
+<img src="https://jugproductions.neocities.org/badges/spongebob.gif" />
+<img src="https://jugproductions.neocities.org/badges/stealthesebuttons.png" />
+<img src="https://jugproductions.neocities.org/badges/strawberryshortcake.gif" />
+<img src="https://jugproductions.neocities.org/badges/texan.gif" />
+<img src="https://jugproductions.neocities.org/badges/texas_gurl.png" />
+<img src="https://jugproductions.neocities.org/badges/texaslonghorns.png" />
+<img src="https://jugproductions.neocities.org/badges/tool_copy1.gif" />
+<img src="https://jugproductions.neocities.org/badges/tool_copy2.gif" />
+<img src="https://jugproductions.neocities.org/badges/utexas.png" />
+<img src="https://jugproductions.neocities.org/badges/winamp.gif" />
+<img src="" />
+<img src="" />
+<img src="" />
+<img src="" />
+</marquee>
+</div>
+
+<div> <!--container end div-->
+<div class="www" style="margin-top: 30px;">
+<img src="https://cdn.dirtcar.com/wp-content/uploads/sites/2/2019/10/30120141/SDCS_Logo.png">
+</div>
+
+
+<div class="fabulus"><img src="https://raw.githubusercontent.com/nicopancakes/vigilant-dollop/refs/heads/main/image-removebg-preview%20(5).png" width="360" /><div>
+
+<div style= "position: fixed; text-align: left; left: -20px; bottom: -20px" >
+<img src="https://jugproductions.neocities.org/stuff/rbgraphic.png" alt="bottomleft" width=250px />
+</div>
+
+
+<div style= "position: fixed; text-align: right; right: -20px; bottom: -20px" >
+<img src="https://jugproductions.neocities.org/stuff/rbgraphic2.png" alt="bottomright" width=250px />
+</div>
+
+
+<script>
+  // Make the DIV element draggable:
+dragElement(document.getElementById("tab"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+ </script>
+
+<style>
+@font-face {
+      font-family: 'cringe'; 
+      src: url('https://jugproductions.neocities.org/fontstuff/Frutiger.woff2') format('woff2'),
+           url('https://jugproductions.neocities.org/fontstuff/Frutiger.woff') format('woff'),
+           url('https://jugproductions.neocities.org/fontstuff/Frutiger.ttf') format('truetype'); 
+      font-weight: normal;
+      font-style: normal; 
+  }
+  @font-face {
+      font-family: 'retro'; 
+      src: url('https://jugproductions.neocities.org/fontstuff/Retroforge.woff2') format('woff2'),
+           url('https://jugproductions.neocities.org/fontstuff/Retroforge.woff') format('woff'),
+           url('https://jugproductions.neocities.org/fontstuff/Retroforge.ttf') format('truetype'); 
+      font-weight: normal;
+      font-style: normal; 
+  }
+body {
+cursor: url('https://jugproductions.neocities.org/HEARTCURSOR.png'), auto;  
+ background-image:url('https://files.catbox.moe/a6irx1.gif');
+ background-size: cover;
+ background-color:black;
+background-attachment: fixed;
+ overflow: scroll;
+}
+body a:hover {
+cursor: url('https://jugproductions.neocities.org/heartcursorlink.png'), auto; 
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+::-moz-selection {
+  color: #ffedf9;
+  background: #cf03fc;
+}  
+#container {
+background-image:url('https://jugproductions.neocities.org/backgrounds/pinkpurplezebraaa.png');
+background-size: cover;
+display: flex;
+justify-content: center;  
+max-width: 900px;
+height: 1560px;
+border: 5px dotted #ff00cc;
+border-radius: 10px;
+margin: 0 auto;
+flex-direction: column;
+align-items: center;
+padding:3px;
+-webkit-box-shadow:0px 0px 20px 10px #B60BAE;
+-moz-box-shadow: 0px 0px 20px 10px #B60BAE;
+box-shadow: 0px 0px 20px 10px #B60BAE;
+}
+#bannerbox{
+  border-radius: 12px 12px 0px 0px; 
+  -webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#banner{ 
+border-radius: 12px 12px 0px 0px;  
+width: 800px;
+height: 200px;
+border: 7px ridge #ff00cc;
+background-image: url("https://file.garden/aiTOCo1omSIh0Rz1/Screenshot_6.png");
+background-size: cover;
+background-color: #ff00cc;
+} 
+#navbar{
+height:57px; 
+width: 800px;
+border: 7px ridge #ff00cc;
+border-top: 0px;
+background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 99, 224, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+}
+#navbar ul{
+display: flex;
+padding: 0;
+margin: 0;
+list-style-type: none;
+justify-content: space-evenly;
+}
+#navbar li {
+padding-top: 18px;
+}
+#navbar li a {
+  color:#590061;
+  text-decoration:none;
+  font-size: 19px;
+  font-family: 'cringe';
+  text-shadow:
+   -1px -1px 0 #ea00ff,  
+    1px -1px 0 #ea00ff,
+    -1px 1px 0 #ea00ff,
+     1px 1px 0 #ea00ff;
+}
+#navbar li a:hover {
+  cursor: url('https://jugproductions.neocities.org/heartcursorlink.png'), auto;
+  color:#17ff3e;
+  text-decoration:underline;
+  font-style: italic;
+  text-shadow:
+   -1px -1px 0 #ffedf8,  
+    1px -1px 0 #ffedf8,
+    -1px 1px 0 #ffedf8,
+     1px 1px 0 #ffedf8;
+}
+#firstsection{
+height: 400px;
+width:100%;
+border: 0px solid red;
+}  
+#intro{
+  border-radius: 7px;
+  padding-left: 7px;
+width: 643px;
+height: 395px;
+border: 7px ridge #ff00cc; 
+float: right;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+} 
+#intro p{
+ font-size:20px;
+  font-family:'cringe';
+  color:#710075;
+   text-shadow:
+   
+}  
+ 
+#extra{
+border-radius: 7px;  
+float: left;
+width: 220px;
+height: 395px;
+border: 7px ridge #ff00cc;
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#extra a:hover{
+ color:#17ff3e;
+  text-decoration:underline;
+  font-style: italic;
+  text-shadow:
+   -1px -1px 0 #ffedf8,  
+    1px -1px 0 #ffedf8,
+    -1px 1px 0 #ffedf8,
+     1px 1px 0 #ffedf8; 
+}
+.guestbook{ 
+  padding-top:10px;
+  padding-left:5px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+} 
+.guestbook a{
+text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;  
+}
+.strawpage{ 
+  padding-top:10px;
+  padding-left:5px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+} 
+.strawpage a{
+text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;  
+}
+.everskies{ 
+  padding-top:10px;
+  padding-left:5px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+}
+.everskies a{
+text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;  
+}
+.roblox{ 
+  padding-top:10px;
+  padding-left:5px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+}
+.roblox a{
+  text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;
+}
+.deftring{
+  padding-top:10px;
+  padding-left:5px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+} 
+.deftring a{
+  text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;
+}
+.gbring{
+  padding-left:5px;
+  padding-top:10px;
+  width: 215px;
+  height: 30px;
+  border-bottom: 2px solid #ff00cc;
+  background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+} 
+.gbring a{
+  text-decoration: none;
+  font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;
+}
+.jugbutton{
+  padding-top:10px;
+  font-size:15px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;
+  width: 220px;
+  height: 131px;
+  border-top: 5px ridge #ff00cc;
+  background: #ff0fcf;
+background: radial-gradient(circle, rgba(255, 15, 207, 1) 0%, rgba(112, 0, 143, 1) 100%);
+  
+}  
+#secondsection{
+height: 340px;
+width:100%;
+border: 0px solid red;
+} 
+#stuff{
+border-radius: 7px;  
+float:left;  
+height: 332px; 
+width: 345px; 
+border: 7px ridge #ff00cc;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+} 
+#fun{
+border-radius: 7px;  
+float:left;  
+height: 332px; 
+width: 157px; 
+border: 7px ridge #ff00cc;
+background: #ff0fcf;
+background: radial-gradient(circle, rgba(255, 15, 207, 1) 0%, rgba(112, 0, 143, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+} 
+#stuffheader{
+  padding-left: 5px;  
+padding-top: 10px;
+font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;  
+width: 340px;
+height: 35px;
+background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+border-bottom: 3px solid #ff00cc;
+}
+#stuffbox{
+ width: 350px;
+height: 283px; 
+border: 0px solid red;
+overflow-y:scroll;
+scrollbar-width: none;
+}
+#stuffbox::-webkit-scrollbar {
+  display: none;
+}
+#art{
+width: 200px;
+height: 200px;
+border-radius: 3px;
+border: 5px outset #c000de;
+background-color:black;
+}
+#art img{
+  filter: brightness(0.9) sepia(1) hue-rotate(-80deg) saturate(700%);
+  transition: filter 0.25s ease-out;
+
+}
+#art img:hover{
+  filter: brightness(1) sepia(0) hue-rotate(0) saturate(1);
+  transition: filter 0.25s ease-in;
+}
+#updatelog{
+  font-family: "MS UI Gothic", sans-serif;
+      font-size: 1em;
+      color: white;
+      text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;
+  margin-right: 7px;
+  margin-top: 7px;
+  margin-left: 7px;
+  margin-bottom: 2px;
+width: 150px;
+height: 262px;
+border-radius: 0px;
+border: 5px solid #bf00bf;
+float:left;
+background-image: ur[](https://jugproductions.neocities.org/backgrounds/pinkleopardd.png);
+background-size: cover;
+overflow-y:scroll;
+scrollbar-width: none;
+}
+#updatelog h1{
+  margin-top: 0px;
+  font-family: 'retro';
+  color: #FFE6F9;
+ background: #ff3bd1;
+background: linear-gradient(90deg, rgba(255, 59, 209, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  height: 30px;
+}
+#updatelog::-webkit-scrollbar {
+  display: none;
+}
+#updatelog a{
+  color:cyan;
+  font-style: italic;
+}
+
+#statusbox{
+  
+  margin-right: 7px;
+  margin-top: 7px;
+  margin-left: 0px;
+  margin-bottom: 2px;
+width: 148px;
+height: 260px;
+border: 0px solid #bf00bf;
+float:right;
+background-image: ur[](https://jugproductions.neocities.org/backgrounds/statusbg.png);
+background-size: 100% 100%; 
+overflow-y:scroll;
+scrollbar-width: none;
+padding: 8px
+}
+#statusbox::-webkit-scrollbar {
+  display: none;
+}
+#statusbox h1{
+  font-family: 'retro';
+  color: #ff00cc;
+font-size: 40px;
+  height: 30px;
+}
+#statusbox p{
+  font-family: 'cringe';
+  font-weight: bold;
+  color: #ff00cc;
+}
+#chatbox{
+border-radius: 7px;  
+float:right;  
+height: 332px; 
+width: 345px; 
+border: 7px ridge #ff00cc;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}  
+#thirdsection{
+height: 290px;
+width:100%;
+border: 0px solid red;
+}
+#boxheader{
+padding-left: 5px;  
+padding-top: 10px;
+font-size:20px;
+  font-family:'cringe';
+  color:white;
+  text-shadow:
+   -1px -1px 0 #ff00a6,  
+    1px -1px 0 #ff00a6,
+    -1px 1px 0 #ff00a6,
+     1px 1px 0 #ff00a6;  
+width: 278px;
+height: 35px;
+background: #ffa1e6;
+background: linear-gradient(0deg, rgba(255, 161, 230, 1) 0%, rgba(255, 28, 210, 1) 52%, rgba(255, 182, 233, 1) 53%, rgba(255, 237, 237, 1) 100%);
+border-bottom: 3px solid #ff00cc;
+}
+#box1{
+border-radius: 7px;  
+float:left;  
+height: 288px; 
+width: 283px; 
+border: 7px ridge #ff00cc;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#box1 h1{
+  font-family:'cringe';
+  color: purple;
+  font-size: 15px;
+}
+#box1 h1 a{
+  color: cyan;
+}
+#toybox{
+  padding:0px;
+  height: 240px; 
+width: 282px;
+border: 0px solid red;
+overflow-y:scroll;
+scrollbar-width: none;
+}
+#toybox::-webkit-scrollbar {
+  display: none;
+}
+#box2{
+border-radius: 7px;  
+float: left;  
+height: 288px; 
+width: 283px; 
+border: 7px ridge #ff00cc;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#sites{
+  padding:5px;
+  height: 230px; 
+width: 272px;
+border: 0px solid red;
+overflow-y:scroll;
+scrollbar-width: none;
+}
+#sites::-webkit-scrollbar {
+  display: none;
+}
+#sites img{
+  transition: filter 0.4s ease-in-out;
+}
+#sites img:hover{
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 1));
+}
+#box3{
+border-radius: 7px;  
+float:right;  
+height: 288px; 
+width: 283px; 
+border: 7px ridge #ff00cc;
+background: #ff4fd0;
+background: linear-gradient(0deg, rgba(255, 79, 208, 1) 0%, rgba(255, 191, 228, 1) 100%);
+-webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#webrings{ 
+  padding:5px;
+  height: 230px; 
+width: 272px;
+border: 0px solid red;
+overflow-y: scroll;
+scrollbar-width: none;
+}
+#webrings::-webkit-scrollbar {
+  display: none;
+}
+#webrings h1{
+  font-size:20px;
+  font-family: 'cringe';
+   color:#ff42fc;
+  text-shadow:
+   -1px -1px 0 #8600a1,  
+    1px -1px 0 #8600a1,
+    -1px 1px 0 #8600a1,
+     1px 1px 0 #8600a1; 
+}
+#badgemarquee{
+ height: 15px;
+ width:885px;
+ border: 5px ridge #ff00cc;
+ padding: 1px;
+ background-color: #ff00cc;
+ -webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#buttonmarquee{
+height: 32px;
+ width:885px;
+ border: 5px ridge #ff00cc;
+ padding: 1px; 
+ background-color: #ff00cc;
+ -webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#blinkiesmarquee{
+height: 20px;
+ width:885px;
+ border: 5px ridge #ff00cc;
+ padding: 1px; 
+ background-color: #ff00cc;
+ -webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#stampmarquee{
+height: 60px;
+ width:885px;
+ border: 5px ridge #ff00cc;
+ padding: 1px; 
+ background-color: #ff00cc;
+ -webkit-box-shadow:0px 0px 5px 3px rgba(0, 0, 0, 1);
+-moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 1);
+}
+#cbox{
+border-radius: 10px;  
+border: 5px ridge #ff00cc;
+width:330px;
+height:280px;
+background-image: ur[](https://jugproductions.neocities.org/backgrounds/pinkleopardd.png);
+background-size: cover;
+}  
+
+#aero-ring {
+    background: linear-gradient(to bottom, #ffade2 0%, #ff00a6 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(114, 1, 55, 0.5),
+      inset 0 2px 1px rgba(255, 255, 255, 0.15),
+      inset 0 -2px 1px rgba(0, 0, 0, 0.35);
+    font-family: sans-serif;
+    margin: 10px auto 0px auto;
+    max-width: 15rem;
+    padding: 0.75rem;
+  }
+
+  #aero-ring a,
+  #aero-ring a:visited {
+    color: white !important;
+  }
+
+  #aero-ring a:focus,
+  #aero-ring a:hover,
+  #aero-ring a:active {
+    color: #ba0295 !important;
+  }
+#lpsring {
+  color: #ff00cc;
+}
+
+#lpsring a {
+  
+  color: #ff00cc;
+}
+#lpsring a:hover {
+  
+  color: #17ff3e;
+  
+}
+.gradientring{
+ background: #FFB8E7;
+background: linear-gradient(0deg,rgba(255, 184, 231, 1) 0%, rgba(255, 65, 173, 1) 44%, rgba(255, 65, 185, 1) 53%, rgba(255, 65, 176, 1) 52%, rgba(255, 184, 231, 1) 60%, rgba(255, 255, 255, 1) 100%); 
+height: 30px;  
+width: 150px;
+border-radius: 20px;
+border: solid deeppink 1px;
+}
+.gradientring a{
+  
+  text-decoration: none;
+  font-family: 'cringe';
+  color: purple;
+  font-size: 18px
+}
+#www img{
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 1));
+}
+
+#statuscafe-username {
+  font-family: 'cringe';
+  font-size: 16px;
+    margin-bottom: 2px;
+    color: #fc03f4;
+}
+#statuscafe-content {
+   font-family: "MS UI Gothic", sans-serif;
+   font-weight: bold;
+  font-size: 14px;
+    margin: 0 0em 0.5em 1em;
+    color: #ff00cc;
+}      
+ #statusbubble {
+   height: 150px;
+   width: 160px;
+   border: 0px solid red;
+   background-image: url('https://jugproductions.neocities.org/thoughtbubble.png');
+   background-size: cover;
+   padding-top: 40px;
+   padding-left: 43px;
+   padding-right: 30px;
+   padding-bottom: 55px;
+   overflow-y: scroll;
+   font-family: 'pixel';
+   scrollbar-width: none;
+ }
+ #statusbubble::-webkit-scrollbar {
+  display: none;
+}
+ .fabulus{
+       
+float:left;
+position:fixed;
+left:0px;
+top:35px;
+
+ }
+#tab {
+  position: absolute;
+ bottom: -190px;
+  z-index: 8;
+  background-color: #f1f1f1;
+  border: 0px solid #d3d3d3;
+  text-align: center;
+  width: 0px;
+  height: 0px; 
+}
+#tabheader {
+  font-family: 'cringe';
+   width: 186px;
+   height:151px;
+  padding-top: 40px; 
+  padding-right: 18px;
+  padding-left: 18px;
+  padding-bottom: 20px;
+  cursor: url('https://jugproductions.neocities.org/movecursor.png'), auto;
+  z-index: 10;
+  background-image: url("https://jugproductions.neocities.org/showcaseimages/imageshowcasetab.png");
+  background-size: contain;
+  color: #fff;
+  overflow: scroll;
+  scrollbar-width: none;
+  color: #ff00cc;
+}
+#tabheader::-webkit-scrollbar {
+  display: none;
+}
+/* pink theme */
+        
+        #musicplayer{ 
+          cursor: url('https://jugproductions.neocities.org/HEARTCURSOR.png'), auto;
+          font-family: 'basiic';
+          font-weight:bold;
+          height:30px;
+          width:100%;
+          left:0;
+          top:0;
+          position:fixed;
+          margin-bottom:20px;  
+          display:flex;
+          background-image: url('https://jugproductions.neocities.org/stuff/musicbar.png');
+          background-size: cover;
+          filter: none;
+          
+         border:ridge 2px #fd69a5;/* border around player */
+          outline: solid 2px black;  
+         box-shadow: inset 13px 0px 6px -10px #f170a5, inset -13px 0px 6px -10px #f170a5, inset 0px 13px 6px -10px #ffffff, inset 0px -13px 6px -10px #f170a5;";
+            }
+         
+            .songtitle{ 
+            display:block;
+            padding:2px; /* padding around song title */
+            font-family: 'cringe';
+            margin-top:4px;
+            margin-right: 5px; 
+            font-size:15px;
+            color:#ff2ba3;
+            letter-spacing: 1.5px; 
+        
+            background: black;/* background of song title */
+            border: gray inset 1px;
+               border-radius:6px;
+               box-shadow: inset 13px 0px 6px -10px rgb(66 66 66 / 20%), inset -13px 0px 6px -10px rgb(66 66 66 / 56%), inset 0px 13px 6px -10px #ffffff, inset 0px -13px 6px -10px rgb(66 66 66 / 38%);
+            }
+         
+            .controls{
+              font-size:12px; /* size of controls */
+              text-align:center;
+              width:100px;
+              height:20px;
+              text-decortation:none;
+              filter: drop-shadow(2px 0 0 white) drop-shadow(0 2px 0 white) drop-shadow(-2px 0 0 white) drop-shadow(0 -2px 0 white)  drop-shadow(-0.5px 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0.5px black) drop-shadow(0 0.5px black) drop-shadow(0.5px 0.5px 0 black) drop-shadow(0.5px 0.5px 0 black);
+            }
+         
+            .controls td{
+               padding-top:5px; /* padding around controls */
+            }
+         
+            .seeking{
+              width:75%;
+              background: transparent;/* background color of seeking bar */
+              display:flex;
+              justify-content: space-evenly;
+              padding:7px; /* padding around seeking bar */
+               
+            }
+         
+            .current-time{  
+              cursor: url('https://jugproductions.neocities.org/HEARTCURSOR.png'), auto;
+              padding-right:5px;
+              margin-right: 3px; 
+             filter: drop-shadow(2px 0 0 white) drop-shadow(0 2px 0 white) drop-shadow(-2px 0 0 white) drop-shadow(0 -2px 0 white)  drop-shadow(-0.5px 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0.5px black) drop-shadow(0 0.5px black) drop-shadow(0.5px 0.5px 0 black) drop-shadow(0.5px 0.5px 0 black);
+               
+            }
+         
+            .total-duration{
+              cursor: url('https://jugproductions.neocities.org/HEARTCURSOR.png'), auto;
+              padding-left:5px;
+              filter: drop-shadow(2px 0 0 white) drop-shadow(0 2px 0 white) drop-shadow(-2px 0 0 white) drop-shadow(0 -2px 0 white)  drop-shadow(-0.5px 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0.5px black) drop-shadow(0 0.5px black) drop-shadow(0.5px 0.5px 0 black) drop-shadow(0.5px 0.5px 0 black);
+            }
+         
+           .ctrlimg {
+   height:16px;
+   width:16px;
+   }
+    .ctrlimg:hover{
+        cursor: url('https://jugproductions.neocities.org/HEARTCURSOR.png'), auto;
+    }
+            
+            input[type=range] {
+                -webkit-appearance: none;
+                width: 100%;
+              background: transparent;
+            }
+            
+            input[type=range]:focus {
+                outline: none;
+            }
+            
+            input[type=range]::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 6px; /* thickness of seeking track */
+                cursor: help;
+                border-radius: 6px;
+                background: black; /* color of seeking track */
+                border: 1px white solid;
+            }
+        
+            input[type=range]::-webkit-slider-thumb {
+                height: 30px; /* height of seeking square */
+                width: 20px; /* width of seeking square */
+                background-image:  url('https://file.garden/Zztv0a9yEhr5pmEq/tumblr_40786d3985453eb5412348aad980ac51_3a9a1088_1280%20(1).gif'); /* image of  seeking square */
+                background-size: 25px;
+                -webkit-appearance: none;
+                margin-top: -10px;
+                
+            }
+            
+        input[type=range].volume_slider::-webkit-slider-runnable-track { 
+            background: white; /* color of volume seeking track */
+             filter:drop-shadow(-0.5px 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 0.5px 0.5px black) drop-shadow(0 0.5px black) drop-shadow(0.5px 0.5px 0 black) drop-shadow(0.5px 0.5px 0 black);  /* outline of volume seeking track */ 
+            }
+       
+         input[type=range].volume_slider::-webkit-slider-thumb {
+            background-image: ur[](https://file.garden/Zztv0a9yEhr5pmEq/798d7d72_original.png);/* image of volume seeking square */
+            background-size: 20px;
+            height: 20px; /* height of volume seeking square */
+            width: 20px; 
+            margin-top: -8px;
+           }
+         
+         
+        .slider_container {  
+          width: 15%;       /* width of volume seeker */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .www{
+          filter: drop-shadow(0 0 5px rgba(0, 0, 0, 1));
+          
+</style>
+  
+</body>  
 </html>
